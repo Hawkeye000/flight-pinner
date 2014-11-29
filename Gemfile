@@ -31,7 +31,9 @@ group :development, :test do
   gem 'capybara'
 end
 
+# for geolocation support
 gem 'geocoder'
+gem 'nearest_time_zone'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
