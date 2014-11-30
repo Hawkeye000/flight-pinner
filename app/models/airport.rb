@@ -12,7 +12,7 @@ class Airport < ActiveRecord::Base
   validates :longitude, presence:true, if:"iata_faa.nil?"
 
   validates :iata_faa, format:
-    { with: /\A[A-Z]{3}\z/, message:"must be 3-letter acronym" },
+    { with: /\A([A-Z]|\d){3}\z/, message:"must be 3-letter acronym" },
     allow_blank:true
   validates :iata_faa, uniqueness:true
 
