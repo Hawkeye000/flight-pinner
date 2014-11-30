@@ -15,6 +15,16 @@ RSpec.describe Airport, :type => :model do
 
       describe "iata_faa" do
 
+        it "should be a three letter acronym" do
+          @airport = build(:airport, iata_faa:"BOS")
+          expect(@airport).to be_valid
+        end
+
+        it "should not be valid if not a three letter acronym" do
+          @airport = build(:airport, iata_faa:"WBOS")
+          expect(@airport).to_not be_valid
+        end
+
       end
 
     end
