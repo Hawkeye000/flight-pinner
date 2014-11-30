@@ -7,8 +7,9 @@ class Airline < ActiveRecord::Base
 
   before_save { self.country = self.country.split.map(&:capitalize).join(' ') }
 
-  def one_code?
-    (!self.iata.blank?) || (!self.icao.blank?)
-  end
+  private
+    def one_code?
+      (!self.iata.blank?) || (!self.icao.blank?)
+    end
 
 end
