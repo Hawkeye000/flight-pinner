@@ -70,9 +70,20 @@ RSpec.describe Airport, :type => :model do
           expect(@airport).to be_valid
         end
 
+        it "should be valid even with a number" do
+          @airport = build(:airport, icao:"KBO1")
+          expect(@airport).to be_valid
+        end
+
         it "should not be valid if not a four letter acronym" do
           @airport = build(:airport, icao:"BOS")
           expect(@airport).to_not be_valid
+        end
+
+        it 'converts \N to a nil' do
+          @airport = build(:airport, icao:'\N')
+          @airport.save!
+          expect(@airport.icao).to be_blank
         end
 
       end

@@ -17,7 +17,9 @@ class Airport < ActiveRecord::Base
   validates :iata_faa, uniqueness:true
 
   validates :icao, format:
-    { with: /\A[A-Z]{4}\z/, message:"must be 4-letter acronym" }
+    { with: /\A([A-Z]|\d){4}\z/, message:"must be 4-letter acronym" },
+    allow_blank:true
+  before_validation { self.icao = nil if self.icao == '\N' }
 
   geocoded_by :iata_faa
   after_validation :geocode, if: lambda { |a| a.latitude.nil? || a.longitude.nil? }
