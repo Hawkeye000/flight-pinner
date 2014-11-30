@@ -28,4 +28,18 @@ FactoryGirl.define do
     iata nil
   end
 
+  factory :route do
+    airline_id 1
+    origin_airport_id 1
+    destination_airport_id 2
+    stops 0
+    equipment "738"
+  end
+
+  factory :invalid_route, parent: :route do
+    airline_id nil
+    origin_airport_id nil
+    destination_airport_id nil
+  end
+
 end
