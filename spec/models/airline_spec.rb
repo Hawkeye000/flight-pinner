@@ -46,6 +46,12 @@ RSpec.describe Airline, :type => :model do
         expect(@airline).to be_valid
       end
 
+      it "should capitalize all before saving" do
+        @airline.iata = "aa"
+        expect{@airline.save!}.to change{Airline.count}.by(1)
+        expect(@airline.iata).to eq("AA")
+      end
+
     end
 
     describe "icao" do
@@ -68,6 +74,12 @@ RSpec.describe Airline, :type => :model do
       it "should capitalize all before validation" do
         @airline.icao = "aaa"
         expect(@airline).to be_valid
+      end
+
+      it "should capitalize all before saving" do
+        @airline.icao = "aaa"
+        expect{@airline.save!}.to change{Airline.count}.by(1)
+        expect(@airline.icao).to eq("AAA")
       end
 
     end
