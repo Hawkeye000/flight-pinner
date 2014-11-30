@@ -11,6 +11,8 @@ class Airline < ActiveRecord::Base
     allow_blank:true
 
   before_save { self.country = self.country.titleize }
+  before_validation { self.iata.upcase! unless self.iata.blank? }
+  before_validation { self.icao.upcase! unless self.icao.blank? }
 
   private
     def one_code?

@@ -41,6 +41,11 @@ RSpec.describe Airline, :type => :model do
         expect(@airline).to_not be_valid
       end
 
+      it "should capitalize all before validation" do
+        @airline.iata = "aa"
+        expect(@airline).to be_valid
+      end
+
     end
 
     describe "icao" do
@@ -58,6 +63,11 @@ RSpec.describe Airline, :type => :model do
       it "cannot be two letters" do
         @airline.icao = "AA"
         expect(@airline).to_not be_valid
+      end
+
+      it "should capitalize all before validation" do
+        @airline.icao = "aaa"
+        expect(@airline).to be_valid
       end
 
     end
