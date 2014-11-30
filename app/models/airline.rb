@@ -5,7 +5,7 @@ class Airline < ActiveRecord::Base
   validates :iata, presence:true, unless: :one_code?
   validates :icao, presence:true, unless: :one_code?
 
-  before_save { self.country = self.country.split.map(&:capitalize).join(' ') }
+  before_save { self.country = self.country.titleize }
 
   private
     def one_code?
