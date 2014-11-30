@@ -30,8 +30,6 @@ ActiveRecord::Schema.define(version: 20141130010232) do
     t.float    "latitude"
     t.float    "longitude"
     t.float    "altitude"
-    t.float    "timezone"
-    t.string   "tz_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
