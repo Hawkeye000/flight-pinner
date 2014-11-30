@@ -15,4 +15,17 @@ FactoryGirl.define do
     name nil
   end
 
+  factory :airline do
+    name Faker::Company.name
+    iata "AA"
+    icao "AAA"
+    callsign Faker::Lorem.word
+    country Faker::Address.country
+  end
+
+  factory :invalid_airline, parent: :airline do
+    name nil
+    iata nil
+  end
+
 end
