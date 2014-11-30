@@ -2,6 +2,25 @@ require 'rails_helper'
 
 RSpec.describe Airport, :type => :model do
 
+  describe "associations" do
+
+    before { @airport = create(:airport) }
+
+    it { should have_many :departing_flights }
+    it { should have_many :arriving_flights }
+
+    describe "departing flights" do
+      subject { @airport.departing_flights.first }
+      it { should be_a Route }
+    end
+
+    describe "arriving flights" do
+      subject { @airport.arriving_flights.first }
+      it { should be_a Route }
+    end
+
+  end
+
   describe "responses" do
     it { should respond_to :timezone }
   end

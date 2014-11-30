@@ -10,7 +10,7 @@ RSpec.describe Route, :type => :model do
 
   end
 
-  describe "relationships" do
+  describe "associations" do
 
     it { should belong_to :airline }
     it { should belong_to :origin_airport }

@@ -1,5 +1,12 @@
 class Airport < ActiveRecord::Base
 
+  #associations
+
+  has_many :departing_flights, foreign_key: :origin_airport_id, class_name: Route
+  has_many :arriving_flights, foreign_key: :destination_airport_id, class_name: Route
+
+  #validations
+
   validates :name, presence:true
   validates :latitude, presence:true, if:"iata_faa.nil?"
   validates :longitude, presence:true, if:"iata_faa.nil?"

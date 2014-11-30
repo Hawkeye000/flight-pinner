@@ -1,5 +1,11 @@
 class Airline < ActiveRecord::Base
 
+  #associations
+  
+  has_many :routes
+
+  #validations
+
   validates :name, presence:true
 
   validates :iata, presence:true, unless: :one_code?
