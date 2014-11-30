@@ -26,6 +26,16 @@ RSpec.describe Airline, :type => :model do
 
   end
 
+  describe "data integrity" do
+
+    it "always has capitalized countries" do
+      @airline = build(:airline, country:'united states')
+      @airline.save!
+      expect(@airline.country).to eq("United States")
+    end
+
+  end
+
   describe "factories" do
 
     it "has a valid factory" do
