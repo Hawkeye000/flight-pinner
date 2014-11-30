@@ -24,6 +24,44 @@ RSpec.describe Airline, :type => :model do
       expect(@airline).to be_valid
     end
 
+    describe "iata" do
+
+      it "is a two letter code" do
+        @airline.iata = "AA"
+        expect(@airline).to be_valid
+      end
+
+      it "can have a number" do
+        @airline.iata = "A1"
+        expect(@airline).to be_valid
+      end
+
+      it "cannot be three letters" do
+        @airline.iata = "AAA"
+        expect(@airline).to_not be_valid
+      end
+
+    end
+
+    describe "icao" do
+
+      it "is a three letter code" do
+        @airline.icao = "AAA"
+        expect(@airline).to be_valid
+      end
+
+      it "cannot have a number" do
+        @airline.icao = "A1A"
+        expect(@airline).to_not be_valid
+      end
+
+      it "cannot be two letters" do
+        @airline.icao = "AA"
+        expect(@airline).to_not be_valid
+      end
+
+    end
+
   end
 
   describe "data integrity" do
