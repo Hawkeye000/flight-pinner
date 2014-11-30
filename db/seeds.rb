@@ -10,40 +10,51 @@ require 'csv'
 require 'factory_girl'
 #Dir[Rails.root.join("spec/factories.rb")].each { |f| require f }
 
-airport_csv = CSV.read('db/seed_data/airports.dat',headers:true)
+# Airport Seeding
 
-airport_objects = []
-inv_airport_objects = []
+if Airport.count == 0
 
-airport_csv.each_with_index do |airport, index|
-  ah = airport.to_h
-  new_ao = FactoryGirl.build(:airport,
-    name:ah['name'],
-    iata_faa:ah['iata_faa'],
-    icao:ah['icao'],
-    latitude:ah['latitude'],
-    longitude:ah['longitude'],
-    altitude:ah['altitude'])
-  if new_ao.valid?
-    airport_objects.push(new_ao)
-  else
-    inv_airport_objects.push(new_ao)
+  airport_csv = CSV.read('db/seed_data/airports.dat',headers:true)
+
+  airport_objects = []
+  inv_airport_objects = []
+
+  airport_csv.each_with_index do |airport, index|
+    ah = airport.to_h
+    new_ao = FactoryGirl.build(:airport,
+      name:ah['name'],
+      iata_faa:ah['iata_faa'],
+      icao:ah['icao'],
+      latitude:ah['latitude'],
+      longitude:ah['longitude'],
+      altitude:ah['altitude'])
+    if new_ao.valid?
+      airport_objects.push(new_ao)
+    else
+      inv_airport_objects.push(new_ao)
+    end
+    $stdout.flush
+    print "Valid airports #{airport_objects.length}, Invalid airports #{inv_airport_objects.length}, of #{airport_csv.length} Total\r"
   end
-  $stdout.flush
-  print "Valid airports #{airport_objects.length}, Invalid airports #{inv_airport_objects.length}, of #{airport_csv.length} Total\r"
-end
 
-print "\nInvalid Airports\n"
-inv_airport_objects.each { |x| puts x.name }
+  print "\nInvalid Airports\n"
+  inv_airport_objects.each { |x| puts x.name }
 
-print "\nCreating valid airports\n"
-airport_objects.each do |x|
-  $stdout.flush
-  if x.save
-    print "Airports Created #{Airport.count}\r"
-  else
-    print "Error Encountered! Airport:#{x.name}\n"
+  print "\nCreating valid airports\n"
+  airport_objects.each do |x|
+    $stdout.flush
+    if x.save
+      print "Airports Created #{Airport.count}\r"
+    else
+      print "Error Encountered! Airport:#{x.name}\n"
+    end
   end
-end
 
-print "Finished creating airports.\n"
+  print "Finished creating airports.\n"
+
+else
+
+  print "Skipped seeding Airport data.\n"
+  print "Airport Data already in database.\n"
+
+end
