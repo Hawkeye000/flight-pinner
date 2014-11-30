@@ -11,8 +11,6 @@ RSpec.describe Airport, :type => :model do
     context "presence" do
       it { should validate_presence_of :name }
       it { should_not validate_presence_of :iata_faa }
-      it { should validate_presence_of :latitude }
-      it { should validate_presence_of :longitude }
     end
 
     context "data format" do
@@ -39,6 +37,16 @@ RSpec.describe Airport, :type => :model do
           expect(@airport).to be_valid
         end
 
+        it "can have nil latitude and longitude if it has iata_faa" do
+          @airport = build(:airport, iata_faa:"BOS", latitude:nil, longitude:nil)
+          expect(@airport).to be_valid
+        end
+
+        it "cannot have nil latitude and longitude if it has no iata_faa data" do
+          @airport = build(:airport, iata_faa:nil, latitude:nil, longitude:nil)
+          expect(@airport).to_not be_valid
+        end
+
       end
 
       describe "icao" do
@@ -62,6 +70,14 @@ RSpec.describe Airport, :type => :model do
 
     end
 
+  end
+
+  describe "geocoding" do
+    it "should geocode by iata_faa code" do
+      @airport = create(:airport, iata_faa:"JFK", latitude:nil, longitude:nil)
+      expect(@airport.latitude).to_not be_nil
+      expect(@airport.longitude).to_not be_nil
+    end
   end
 
   describe "factories" do

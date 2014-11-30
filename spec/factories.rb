@@ -12,6 +12,7 @@ FactoryGirl.define do
   factory :invalid_airport, parent: :airport do
     latitude nil
     longitude nil
+    name nil
   end
 
 end
