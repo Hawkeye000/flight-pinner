@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Airport, :type => :model do
 
+  describe "responses" do
+    it { should respond_to :timezone }
+  end
+
   describe "validations" do
 
     context "presence" do
@@ -11,7 +15,7 @@ RSpec.describe Airport, :type => :model do
       it { should validate_presence_of :longitude }
     end
 
-    context "data fomat" do
+    context "data format" do
 
       describe "iata_faa" do
 
@@ -49,6 +53,11 @@ RSpec.describe Airport, :type => :model do
           expect(@airport).to_not be_valid
         end
 
+      end
+
+      it "can display a timezone" do
+        @airport = build(:airport, latitude:40.6413111, longitude:-73.77813909999999)
+        expect(@airport.timezone).to eq("America/New_York")
       end
 
     end

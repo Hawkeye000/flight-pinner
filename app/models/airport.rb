@@ -12,4 +12,8 @@ class Airport < ActiveRecord::Base
   validates :icao, format:
     { with: /\A[A-Z]{4}\z/, message:"must be 4-letter acronym" }
 
+  def timezone
+    NearestTimeZone.to(self.latitude, self.longitude)
+  end
+
 end
