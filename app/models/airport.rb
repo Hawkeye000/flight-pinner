@@ -13,7 +13,7 @@ class Airport < ActiveRecord::Base
     { with: /\A[A-Z]{4}\z/, message:"must be 4-letter acronym" }
 
   geocoded_by :iata_faa
-  after_validation :geocode
+  after_validation :geocode, if: lambda { |a| a.latitude.nil? || a.longitude.nil? }
 
   def timezone
     NearestTimeZone.to(self.latitude, self.longitude)

@@ -73,10 +73,11 @@ RSpec.describe Airport, :type => :model do
   end
 
   describe "geocoding" do
-    it "should geocode by iata_faa code" do
+    it "should geocode if no lat-long data" do
       @airport = create(:airport, iata_faa:"JFK", latitude:nil, longitude:nil)
       expect(@airport.latitude).to_not be_nil
       expect(@airport.longitude).to_not be_nil
+      # print "#{@airport.latitude}, #{@airport.longitude}"
     end
   end
 
