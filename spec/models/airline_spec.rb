@@ -10,6 +10,10 @@ RSpec.describe Airline, :type => :model do
     it { should have_many :routes }
   end
 
+  describe "responses" do
+    it { should respond_to :routes_count }
+  end
+
   describe "codes" do
 
     before { @airline = build(:airline) }

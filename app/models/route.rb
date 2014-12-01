@@ -2,9 +2,9 @@ class Route < ActiveRecord::Base
 
   # associations
 
-  belongs_to :destination_airport, class_name:"Airport"
-  belongs_to :origin_airport, class_name:"Airport"
-  belongs_to :airline
+  belongs_to :destination_airport, class_name:"Airport", counter_cache: :arriving_flights_count
+  belongs_to :origin_airport, class_name:"Airport", counter_cache: :departing_flights_count
+  belongs_to :airline, counter_cache:true
 
   # validations
 

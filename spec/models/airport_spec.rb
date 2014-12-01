@@ -13,6 +13,8 @@ RSpec.describe Airport, :type => :model do
 
   describe "responses" do
     it { should respond_to :timezone }
+    it { should respond_to :departing_flights_count }
+    it { should respond_to :arriving_flights_count }
   end
 
   describe "validations" do
