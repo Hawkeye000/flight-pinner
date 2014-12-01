@@ -11,5 +11,8 @@ class Route < ActiveRecord::Base
   validates :origin_airport_id, presence:true
   validates :destination_airport_id, presence:true
   validates :airline_id, presence:true
+  validates :origin_airport, presence:true
+  validates :destination_airport, presence:true
+  validates :airline, presence:true
 
 end

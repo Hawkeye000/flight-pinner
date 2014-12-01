@@ -18,9 +18,18 @@ RSpec.describe Route, :type => :model do
     it { should validate_presence_of :origin_airport_id }
     it { should validate_presence_of :destination_airport_id }
     it { should validate_presence_of :airline_id }
+    it { should validate_presence_of :origin_airport }
+    it { should validate_presence_of :destination_airport }
+    it { should validate_presence_of :airline }
   end
 
   describe "factories" do
+
+    before do
+      @airline = create(:airline)
+      @airport1 = create(:airport)
+      @airport2 = create(:airport, iata_faa:"JFK", icao:"KJFK")
+    end
 
     it "has a valid factory" do
       @route = build(:route)
