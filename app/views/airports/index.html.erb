@@ -1,0 +1,19 @@
+<%= render 'map_of_airports' %>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>IATA/FAA</th>
+    <th>ICAO</th>
+    <th>Lat</th>
+    <th>Long</th>
+  </tr>
+  <% @airports.each do |a| %>
+    <tr>
+      <td><%= a.name %></td>
+      <td><%= a.iata_faa %></td>
+      <td><%= a.icao %></td>
+      <td><%= a.latitude %></td>
+      <td><%= a.longitude %></td>
+    </tr>
+  <% end %>
+</table>
