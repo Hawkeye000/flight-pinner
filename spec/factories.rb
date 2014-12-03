@@ -2,8 +2,8 @@ FactoryGirl.define do
 
   factory :airport do
     name Faker::Company.name
-    iata_faa "BOS"
-    icao "KBOS"
+    iata_faa Faker::Lorem.words(3).map { |x| x.first }.join.upcase!
+    icao Faker::Lorem.words(4).map { |x| x.first }.join.upcase!
     latitude Faker::Address.latitude.to_f
     longitude Faker::Address.longitude.to_f
     altitude Faker::Number.decimal(3,2)
@@ -17,8 +17,8 @@ FactoryGirl.define do
 
   factory :airline do
     name Faker::Company.name
-    iata "AA"
-    icao "AAA"
+    iata Faker::Lorem.words(2).map { |x| x.first }.join.upcase!
+    icao Faker::Lorem.words(3).map { |x| x.first }.join.upcase!
     callsign Faker::Lorem.word
     country Faker::Address.country
   end
