@@ -6,10 +6,12 @@ class AirportsController < ApplicationController
       marker.lat airport.latitude
       marker.lng airport.longitude
       marker.picture({
-        url:"/assets/airplane21.png",
-        width:"24",
-        height:"24"
+          url:"/assets/airplane21.png",
+          width:"50",
+          height:"50"
       })
+      marker.infowindow render_to_string(partial:'mapinfo',
+          locals:{airport:airport}).gsub(/\n/, '').gsub(/"/,'\"')
     end
   end
 
