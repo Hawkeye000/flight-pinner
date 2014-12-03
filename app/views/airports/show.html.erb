@@ -3,3 +3,9 @@
 <h1>
   <%= @airport.name %> (<%= @airport.iata_faa %>)
 </h1>
+<h2>Airlines Flying Out</h2>
+<ul>
+  <% @airport.airlines.each do |airline| %>
+    <li><%= airline.name %></li>
+  <% end %>
+</ul>
