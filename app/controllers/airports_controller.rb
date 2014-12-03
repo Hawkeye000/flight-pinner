@@ -7,8 +7,8 @@ class AirportsController < ApplicationController
       marker.lng airport.longitude
       marker.picture({
           url:"/assets/airplane21.png",
-          width:"50",
-          height:"50"
+          width:"30",
+          height:"30"
       })
       marker.infowindow render_to_string(partial:'mapinfo',
           locals:{airport:airport}).gsub(/\n/, '').gsub(/"/,'\"')
@@ -22,8 +22,8 @@ class AirportsController < ApplicationController
       marker.lng airport.longitude
       marker.picture({
           url:"/assets/airplane21.png",
-          width:"50",
-          height:"50"
+          width:"30",
+          height:"30"
       })
       marker.infowindow render_to_string(partial:'mapinfo',
           locals:{airport:airport}).gsub(/\n/, '').gsub(/"/,'\"')
