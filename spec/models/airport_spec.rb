@@ -100,6 +100,29 @@ RSpec.describe Airport, :type => :model do
 
   end
 
+  describe "#busiest" do
+
+    before do
+      create(:airport, iata_faa:"BOS")
+      create(:airport, iata_faa:"CHI")
+      create(:airport, iata_faa:"JFK")
+      create(:airport, iata_faa:"SFO")
+      create(:airline)
+      (1..3).each do |x|
+        x.times { create(:route, origin_airport_id:x, destination_airport_id:x+1) }
+      end
+    end
+
+    it "should return the busiest airport based on departing_flights" do
+      expect(Airport.busiest).to eq(Airport.find(3))
+    end
+
+    it "should return an array of the busiest 'x' airports" do
+      expect(Airport.busiest(2)).to eq([Airport.find(3), Airport.find(2)])
+    end
+
+  end
+
   describe "geocoding" do
     it "should geocode if no lat-long data" do
       @airport = create(:airport, iata_faa:"JFK", latitude:nil, longitude:nil)

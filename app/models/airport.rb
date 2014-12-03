@@ -25,6 +25,11 @@ class Airport < ActiveRecord::Base
   geocoded_by :iata_faa
   after_validation :geocode, if: lambda { |a| a.latitude.nil? || a.longitude.nil? }
 
+  def self.busiest(num=1)
+    x = self.all.order(:departing_flights_count).reverse.first(num)
+    x.length == 1 ? x[0] : x
+  end
+
   def timezone
     NearestTimeZone.to(self.latitude, self.longitude)
   end
