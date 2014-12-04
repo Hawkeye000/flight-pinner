@@ -123,6 +123,13 @@ RSpec.describe Airport, :type => :model do
 
   end
 
+  describe "#coordinates_hash" do
+    it "should return a hash for google maps" do
+      @airport = create(:airport, latitude:50.0, longitude:55.0)
+      expect(@airport.coordinates_hash).to eq({lat:50.0, lng:55.0})
+    end
+  end
+
   describe "geocoding" do
     it "should geocode if no lat-long data" do
       @airport = create(:airport, iata_faa:"JFK", latitude:nil, longitude:nil)
@@ -133,7 +140,6 @@ RSpec.describe Airport, :type => :model do
   end
 
   describe "factories" do
-
     it "should have a valid factory" do
       expect(build(:airport)).to be_valid
     end
@@ -141,7 +147,6 @@ RSpec.describe Airport, :type => :model do
     it "should have an invalid factory" do
       expect(build(:invalid_airport)).to_not be_valid
     end
-
   end
 
 end

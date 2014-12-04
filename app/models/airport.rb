@@ -30,6 +30,14 @@ class Airport < ActiveRecord::Base
     x.length == 1 ? x[0] : x
   end
 
+  def coordinates
+    [self.latitude, self.longitude]
+  end
+
+  def coordinates_hash
+    [:lat, :lng].zip(self.coordinates).to_h
+  end
+
   def timezone
     NearestTimeZone.to(self.latitude, self.longitude)
   end

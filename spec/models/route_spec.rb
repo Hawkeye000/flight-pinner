@@ -21,8 +21,9 @@ RSpec.describe Route, :type => :model do
 
     before do
       create(:airline)
-      @origin = create(:airport, latitude:40, longitude:40, iata_faa:"JFK")
-      @destination = create(:airport, latitude:50, longitude:50, iata_faa:"BOS")
+      @origin = create(:airport, latitude:40, longitude:45, iata_faa:"JFK")
+      @destination = create(:airport, latitude:50, longitude:55, iata_faa:"BOS")
+      @route = create(:route)
     end
 
     describe "responses" do
@@ -33,15 +34,19 @@ RSpec.describe Route, :type => :model do
 
     describe "coordinates" do
       it "should return the coordinates of the origin and destination airport" do
-        @route = create(:route)
-        expect(@route.coordinates).to eq([[40, 40],[50, 50]])
+        expect(@route.coordinates).to eq([[40, 45],[50, 55]])
       end
     end
 
     describe "airports" do
       it "should return the origin and destination airports" do
-        @route = create(:route)
         expect(@route.airports).to eq([@origin, @destination])
+      end
+    end
+
+    describe "map_line" do
+      it "should return an array of hashs for using in gmaps" do
+        expect(@route.map_line).to eq([{lat:40, lng:45},{lat:50, lng:55}])
       end
     end
 
