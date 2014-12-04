@@ -2,12 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Route, :type => :model do
 
-  describe "responses" do
-    it { should respond_to :airline }
-    it { should respond_to :origin_airport }
-    it { should respond_to :destination_airport }
-  end
-
   describe "associations" do
     it { should belong_to :airline }
     it { should belong_to :origin_airport }
@@ -21,6 +15,36 @@ RSpec.describe Route, :type => :model do
     it { should validate_presence_of :origin_airport }
     it { should validate_presence_of :destination_airport }
     it { should validate_presence_of :airline }
+  end
+
+  describe "functions" do
+
+    before do
+      create(:airline)
+      @origin = create(:airport, latitude:40, longitude:40, iata_faa:"JFK")
+      @destination = create(:airport, latitude:50, longitude:50, iata_faa:"BOS")
+    end
+
+    describe "responses" do
+      it { should respond_to :airline }
+      it { should respond_to :origin_airport }
+      it { should respond_to :destination_airport }
+    end
+
+    describe "coordinates" do
+      it "should return the coordinates of the origin and destination airport" do
+        @route = create(:route)
+        expect(@route.coordinates).to eq([[40, 40],[50, 50]])
+      end
+    end
+
+    describe "airports" do
+      it "should return the origin and destination airports" do
+        @route = create(:route)
+        expect(@route.airports).to eq([@origin, @destination])
+      end
+    end
+
   end
 
   describe "factories" do

@@ -10,7 +10,7 @@ class AirportsController < ApplicationController
           width:"30",
           height:"30"
       })
-      marker.infowindow render_to_string(partial:'mapinfo',
+      marker.infowindow render_to_string(partial:'shared/mapinfo',
           locals:{airport:airport}).gsub(/\n/, '').gsub(/"/,'\"')
     end
   end
@@ -25,7 +25,7 @@ class AirportsController < ApplicationController
           width:"30",
           height:"30"
       })
-      marker.infowindow render_to_string(partial:'mapinfo',
+      marker.infowindow render_to_string(partial:'shared/mapinfo',
           locals:{airport:airport}).gsub(/\n/, '').gsub(/"/,'\"')
     end
   end

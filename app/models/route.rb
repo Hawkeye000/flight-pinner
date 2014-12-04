@@ -15,4 +15,13 @@ class Route < ActiveRecord::Base
   validates :destination_airport, presence:true
   validates :airline, presence:true
 
+  def coordinates
+    [[self.origin_airport.latitude, self.origin_airport.longitude],
+    [self.destination_airport.latitude, self.destination_airport.longitude]]
+  end
+
+  def airports
+    [self.origin_airport, self.destination_airport]
+  end
+
 end
