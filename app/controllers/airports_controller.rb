@@ -1,6 +1,15 @@
 class AirportsController < ApplicationController
 
   def index
+    if params[:iata_faa]
+      @airport = Airport.find_by(iata_faa:params[:iata_faa])
+      if @airport
+        redirect_to @airport
+      else
+        flash[:alert] = "Invalid IATA/FAA code!"
+      end
+    end
+
     @airports = Airport.all
     @hash = Gmaps4rails.build_markers(@airports) do |airport, marker|
       marker.lat airport.latitude
