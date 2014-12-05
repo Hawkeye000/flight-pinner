@@ -42,6 +42,9 @@ gem 'nearest_time_zone'
 gem 'gmaps4rails'
 gem 'underscore-rails'
 
+# user auth
+gem 'devise'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

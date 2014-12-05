@@ -1,5 +1,9 @@
 FactoryGirl.define do
 
+  factory :user do
+
+  end
+
   factory :airport do
     name Faker::Company.name
     iata_faa Faker::Lorem.words(3).map { |x| x.first }.join.upcase!

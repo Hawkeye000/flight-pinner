@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   resources :airports, only:[:index, :show] do
     resources :routes, only:[:index]
   end
   resources :routes, only:[:show]
+
+  root to:'airports#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
