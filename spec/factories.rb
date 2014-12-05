@@ -6,7 +6,8 @@ FactoryGirl.define do
   end
 
   factory :user do
-
+    email "user@example.com"
+    password "password"
   end
 
   factory :airport do
