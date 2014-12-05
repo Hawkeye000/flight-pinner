@@ -132,12 +132,18 @@ RSpec.describe Airport, :type => :model do
   end
 
   describe "geocoding" do
+
+    before { @airport = create(:airport, iata_faa:"BOS", latitude:nil, longitude:nil)}
+
     it "should geocode if no lat-long data" do
-      @airport = create(:airport, iata_faa:"JFK", latitude:nil, longitude:nil)
-      expect(@airport.latitude).to_not be_nil
       expect(@airport.longitude).to_not be_nil
       # print "#{@airport.latitude}, #{@airport.longitude}"
     end
+
+    it "should reverse geocode to give country and city" do
+      expect(@airport.reverse_geocode).to eq(["Boston", "United States"])
+    end
+
   end
 
   describe "factories" do
