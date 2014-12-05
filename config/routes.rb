@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :airports, only:[:index, :show]
-  resources :routes, only:[:index, :show]
+  resources :airports, only:[:index, :show] do
+    resources :routes, only:[:index]
+  end
+  resources :routes, only:[:show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

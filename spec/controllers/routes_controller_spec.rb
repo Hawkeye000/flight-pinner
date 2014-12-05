@@ -12,12 +12,12 @@ RSpec.describe RoutesController, :type => :controller do
 
     it 'populates an array of all routes' do
       route = create(:route)
-      get :index
+      get :index, airport_id:1
       expect(assigns(:routes)).to eq([route])
     end
 
     it 'renders the :index view' do
-      get :index
+      get :index, airport_id:1
       expect(response).to render_template :index
     end
 

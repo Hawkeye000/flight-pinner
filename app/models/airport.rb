@@ -4,6 +4,7 @@ class Airport < ActiveRecord::Base
 
   has_many :departing_flights, foreign_key: :origin_airport_id, class_name: Route
   has_many :arriving_flights, foreign_key: :destination_airport_id, class_name: Route
+  has_many :destination_airports, through: :departing_flights, class_name:Airport
   has_many :airlines, -> { uniq }, through: :departing_flights
 
   #validations

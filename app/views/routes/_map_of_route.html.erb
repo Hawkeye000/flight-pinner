@@ -28,7 +28,8 @@ handler.buildMap({
         <%=raw @polylines.to_json %>,
         { icons:[{icon: lineSymbol,
           offset: '100%'}] ,
-          strokeColor: '#47A3FF' });
+          strokeColor: '#47A3FF',
+          strokeWeight: '1'});
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
 });
