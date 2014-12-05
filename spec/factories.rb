@@ -1,5 +1,10 @@
 FactoryGirl.define do
 
+  factory :route_user do
+    user nil
+    route nil
+  end
+
   factory :user do
 
   end

@@ -6,6 +6,9 @@ class Route < ActiveRecord::Base
   belongs_to :origin_airport, class_name:"Airport", counter_cache: :departing_flights_count
   belongs_to :airline, counter_cache:true
 
+  has_many :route_users
+  has_many :users, through: :route_users
+
   # validations
 
   validates :origin_airport_id, presence:true

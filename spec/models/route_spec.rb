@@ -6,6 +6,7 @@ RSpec.describe Route, :type => :model do
     it { should belong_to :airline }
     it { should belong_to :origin_airport }
     it { should belong_to :destination_airport }
+    it { should have_many(:users).through(:route_users) }
   end
 
   describe "validations" do
