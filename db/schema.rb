@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141205032822) do
+ActiveRecord::Schema.define(version: 20141205045817) do
 
   create_table "airlines", force: true do |t|
     t.string   "name"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20141205032822) do
     t.integer  "route_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "date"
   end
 
   add_index "route_users", ["route_id"], name: "index_route_users_on_route_id"
