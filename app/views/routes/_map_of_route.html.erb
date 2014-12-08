@@ -26,10 +26,15 @@ handler.buildMap({
     var lineSymbol = { path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW, strokeColor: '#47A3FF' };
     var polylines = handler.addPolylines(
         <%=raw @polylines.to_json %>,
-        { icons:[{icon: lineSymbol,
-          offset: '100%'}] ,
+        { icons:
+          [{icon: lineSymbol,
+          offset: '98%'},
+          {icon: lineSymbol,
+          offset: '66%'},
+          {icon: lineSymbol,
+          offset: '33%'}],
           strokeColor: '#47A3FF',
-          strokeWeight: '1'});
+          strokeWeight: '1.5'});
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
 });
