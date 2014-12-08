@@ -1,6 +1,6 @@
 <%= form_tag airports_path, method: :get do %>
   <p>
     <%= text_field_tag :iata_faa, params[:iata_faa], id:"iata_faa_search" %>
-    <%= submit_tag "Find", name:"Find" %>
+    <%= submit_tag "Find Airport by IATA/FAA Code", name:"Find", class:"button" %>
   </p>
 <% end %>

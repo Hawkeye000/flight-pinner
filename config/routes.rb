@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   resources :airports, only:[:index, :show] do
     resources :routes, only:[:index]
   end
-  resources :routes, only:[:show]
+  resources :routes, only:[:index, :show]
+  resources :airlines, only:[:index, :show]
 
   root to:'airports#index'
 
