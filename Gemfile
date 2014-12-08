@@ -42,7 +42,11 @@ gem 'nearest_time_zone'
 gem 'gmaps4rails'
 gem 'underscore-rails'
 
-# user auth
+# css layout Zurb Foundation
+gem 'foundation-rails', '>= 5.0'
+gem 'rails_layout', group: :development
+
+# user management
 gem 'devise'
 
 # Use ActiveModel has_secure_password
