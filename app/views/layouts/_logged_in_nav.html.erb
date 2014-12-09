@@ -1,7 +1,7 @@
-<li class="has-dropdown">
+<li class="has-dropdown not-click">
   <a href='#'>User Name Here</a>
   <ul class="dropdown">
     <li><%= link_to "Profile", user_path(current_user) %></li>
-    <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+    <li class="active"><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
   </ul>
 </li>
