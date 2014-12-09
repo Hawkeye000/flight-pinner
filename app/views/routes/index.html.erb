@@ -1,1 +1,23 @@
 <%= render 'map_of_route' %>
+<div class="row">
+  <div class="small-12 columns small-centered">
+    <table>
+      <thead>
+        <tr>
+          <th>Origin (IATA/FAA)</th>
+          <th>Destination (IATA/FAA)</th>
+          <th>Carrier Airline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @routes.each do |route| %>
+          <tr>
+            <td><%= route.origin_airport.iata_faa %></td>
+            <td><%= route.destination_airport.iata_faa %></td>
+            <td><%= route.airline.name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
