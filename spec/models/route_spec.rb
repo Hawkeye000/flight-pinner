@@ -51,6 +51,12 @@ RSpec.describe Route, :type => :model do
       end
     end
 
+    describe "distance" do
+      it "should return the distance in miles" do
+        expect(@route.distance).to be_within(10).of(844.443)
+      end
+    end
+
   end
 
   describe "factories" do

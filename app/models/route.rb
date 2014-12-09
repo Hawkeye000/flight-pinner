@@ -30,6 +30,10 @@ class Route < ActiveRecord::Base
     [self.origin_airport.coordinates_hash, self.destination_airport.coordinates_hash]
   end
 
+  def distance
+    self.origin_airport.distance_to(self.destination_airport)
+  end
+
   alias :map_line :coordinates_hash
 
 end
