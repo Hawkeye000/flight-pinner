@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   devise_for :users
+  resources :users, only:[:show]
   resources :airports, only:[:index, :show] do
     resources :routes, only:[:index]
   end

@@ -29,6 +29,10 @@ RSpec.configure do |config|
   # Include factories
   config.include FactoryGirl::Syntax::Methods
 
+  # Include Warden
+  config.include Warden::Test::Helpers
+  Warden.test_mode!
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
