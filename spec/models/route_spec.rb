@@ -53,7 +53,15 @@ RSpec.describe Route, :type => :model do
 
     describe "distance" do
       it "should return the distance in miles" do
-        expect(@route.distance).to be_within(10).of(844.443)
+        expect(@route.distance).to be_within(10.0).of(844.443)
+      end
+      it "should return the distance in kilometers" do
+        expect(@route.distance(:km)).to be_within(10.0).of(1359.0)
+        expect(@route.distance(:kilometer)).to be_within(10.0).of(1359)
+      end
+      it "should return the distance in nautical miles" do
+        expect(@route.distance(:nm)).to be_within(10.0).of(733.8)
+        expect(@route.distance(:nautical_mile)).to be_within(10.0).of(733.8)
       end
     end
 
