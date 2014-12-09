@@ -1,8 +1,15 @@
 FactoryGirl.define do
 
   factory :route_user do
-    user nil
-    route nil
+    user_id 1
+    route_id 1
+    date DateTime.now.to_date
+  end
+
+  factory :invalid_route_user, parent: :route_user do
+    user_id 1
+    route_id nil
+    date DateTime.now.to_date
   end
 
   factory :user do

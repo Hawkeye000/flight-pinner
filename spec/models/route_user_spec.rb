@@ -10,5 +10,19 @@ RSpec.describe RouteUser, :type => :model do
   describe "methods" do
     it { should respond_to :date }
   end
-  
+
+  describe "validation" do
+    it { should validate_presence_of :user_id }
+    it { should validate_presence_of :route_id }
+  end
+
+  describe "factories" do
+    it "should have a valid factory" do
+      expect(build(:route_user)).to be_valid
+    end
+    it "should have an invalid factory" do
+      expect(build(:invalid_route_user)).to be_invalid
+    end
+  end
+
 end

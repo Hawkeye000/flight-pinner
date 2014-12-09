@@ -1,0 +1,2 @@
+class RouteUsersController < ApplicationController
+end
