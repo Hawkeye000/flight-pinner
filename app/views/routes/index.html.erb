@@ -15,6 +15,11 @@
             <td><%= route.origin_airport.iata_faa %></td>
             <td><%= route.destination_airport.iata_faa %></td>
             <td><%= route.airline.name %></td>
+            <td>
+              <%= link_to 'Add to Flights Log',
+                    new_route_user_path(route_id:route.id),
+                    class:"button tiny radius" %>
+            </td>
           </tr>
         <% end %>
       </tbody>
