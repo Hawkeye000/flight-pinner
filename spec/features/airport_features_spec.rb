@@ -41,12 +41,24 @@ describe "flights departing from the airport" do
     @destination_airport = create(:airport, iata_faa:"BOS")
     @airline = create(:airline)
     @routes = [create(:route), create(:route)]
+    visit '/airports/1'
   end
 
   it "should have a link for viewing the routes that leave" do
-    visit '/airports/1'
     expect(page).to have_link("Departing Routes", href:'/airports/1/routes')
   end
+
+  describe "airports/:id/routes" do
+    it "should be accessible from 'airports/:id'" do
+      click_link("Departing Routes")
+      @origin_airport.departing_flights.each do |route|
+        expect(page).to have_content(route.destination_airport.iata_faa)
+        expect(page).to have_content(route.origin_airport.iata_faa)
+        expect(page).to have_content(route.airline.name)
+      end
+    end
+  end
+
 
   after do |example|
     if example.exception != nil
