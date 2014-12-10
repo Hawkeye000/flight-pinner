@@ -18,7 +18,7 @@
             <td>
               <%= link_to 'Add to Flights Log',
                     new_route_user_path(route_id:route.id),
-                    class:"button tiny radius" %>
+                    class:"button tiny radius", id:"route_#{route.id}" %>
             </td>
           </tr>
         <% end %>

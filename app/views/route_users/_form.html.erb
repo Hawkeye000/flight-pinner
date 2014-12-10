@@ -1,28 +1,14 @@
+<%= f.hidden_field :route_id, default:params[:route_id] %>
+<%= f.hidden_field :user_id, default:params[:user_id] %>
 <div class="row">
-  <%= f.fields_for :route do |ff| %>
-    <div class="small-3 columns">
-      <%= ff.label :origin_airport %>
-      <%= ff.text_field :origin_airport %>
-    </div>
-    <div class="small-3 columns">
-      <%= ff.label :destination_airport %>
-      <%= ff.text_field :destination_airport %>
-    </div>
-    <div class="small-3 columns">
-      <%= ff.label :airline %>
-      <%= ff.text_field :airline %>
-    </div>
-  <% end %>
   <div class="small-3 columns">
     <%= f.label :date %>
     <%= f.date_field :date %>
   </div>
 </div>
 
-<%= f.hidden_field :user_id, default:current_user %>
-
 <div class="row">
   <div class="small-3 small-centered columns">
-    <%= f.submit class:"button" %>
+    <%= f.submit "Add Flight to Log", class:"button" %>
   </div>
 </div>

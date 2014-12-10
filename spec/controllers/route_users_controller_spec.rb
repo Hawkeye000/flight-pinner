@@ -3,10 +3,14 @@ require 'rails_helper'
 RSpec.describe RouteUsersController, :type => :controller do
 
   describe 'GET #new' do
-    it "assigns a new route_user to @route_user" do
-      get :new
-      expect(assigns(:route_user).attributes).to eq(RouteUser.new.attributes)
+
+    context "user is not signed in" do
+      it "assigns a new route_user to @route_user" do
+        get :new
+        expect(assigns(:route_user).attributes).to eq(RouteUser.new.attributes)
+      end
     end
+
     it "renders the :new template" do
       get :new
       expect(response).to render_template :new
