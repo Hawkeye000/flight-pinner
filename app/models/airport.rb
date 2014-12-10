@@ -28,7 +28,7 @@ class Airport < ActiveRecord::Base
 
   reverse_geocoded_by :latitude, :longitude do |obj, results|
     if geo = results.first
-      obj.city, obj_country = geo.city, geo.country
+      obj.city, obj.country = geo.city, geo.country
     end
   end
 

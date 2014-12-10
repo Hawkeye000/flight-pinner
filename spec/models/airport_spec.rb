@@ -144,6 +144,12 @@ RSpec.describe Airport, :type => :model do
       expect(@airport.reverse_geocode).to eq(["Boston", "United States"])
     end
 
+    it "should save the attributes to the airport object" do
+      @airport.reverse_geocode
+      expect(@airport.country).to eq("United States")
+      expect(@airport.city).to eq("Boston")
+    end
+
   end
 
   describe "factories" do
