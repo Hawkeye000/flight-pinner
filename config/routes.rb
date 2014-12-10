@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :users, only:[:show]
 
-  resources :route_users, only:[:new]
+  resources :route_users, only:[:new, :create]
 
   resources :airports, only:[:index, :show] do
     resources :routes, only:[:index]

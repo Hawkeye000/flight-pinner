@@ -18,8 +18,11 @@ RSpec.describe RouteUsersController, :type => :controller do
   end
 
   describe 'POST #create' do
+
     context "with valid attributes" do
-      it "saves the new route_user in the database"
+      it "saves the new route_user in the database" do
+        expect{ post :create, route_user:attributes_for(:route_user) }.to change(RouteUser,:count).by(1)
+      end
       it "redirects to the user page"
     end
 
