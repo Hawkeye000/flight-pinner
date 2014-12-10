@@ -19,6 +19,11 @@ RSpec.describe RouteUsersController, :type => :controller do
 
   describe 'POST #create' do
 
+    before do
+      @user = create(:user)
+      login_as(@user, scope: :user)
+    end
+
     context "with valid attributes" do
       it "saves the new route_user in the database" do
         expect{ post :create, route_user:attributes_for(:route_user) }.to change(RouteUser,:count).by(1)
@@ -27,7 +32,9 @@ RSpec.describe RouteUsersController, :type => :controller do
     end
 
     context "with invalid attributes" do
-      it "does not save the new route_user in the database"
+      it "does not save the new route_user in the database" do
+        expect{ post :create, route_user:attributes_for(:invalid_route_user) }.to change(RouteUser,:count).by(0)
+      end
       it "re-renders the :new template"
     end
 

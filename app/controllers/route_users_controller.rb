@@ -7,7 +7,8 @@ class RouteUsersController < ApplicationController
 
   def create
     if @route_user = RouteUser.create(route_user_params)
-      redirect_to root_path
+      flash[:notice] = "Flight successfully logged."
+      redirect_to @route_user.user
     else
       render :new, alert:"Failed to Log Flight"
     end
