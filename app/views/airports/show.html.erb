@@ -3,6 +3,7 @@
 <h1>
   <%= @airport.name %> (<%= @airport.iata_faa %>)
 </h1>
+<h3><%= link_to "Departing Routes", airport_routes_path(airport_id:@airport.id) %></h3>
 <h2>Airlines Flying Out</h2>
 <ul>
   <% @airport.airlines.each do |airline| %>

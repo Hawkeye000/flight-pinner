@@ -33,3 +33,25 @@ describe "selecting airport by IATA/FAA code" do
 
   end
 end
+
+describe "flights departing from the airport" do
+
+  before do
+    @origin_airport = create(:airport, iata_faa:"JFK")
+    @destination_airport = create(:airport, iata_faa:"BOS")
+    @airline = create(:airline)
+    @routes = [create(:route), create(:route)]
+  end
+
+  it "should have a link for viewing the routes that leave" do
+    visit '/airports/1'
+    expect(page).to have_link("Departing Routes", href:'/airports/1/routes')
+  end
+
+  after do |example|
+    if example.exception != nil
+      save_and_open_page
+    end
+  end
+
+end
