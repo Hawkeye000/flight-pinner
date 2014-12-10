@@ -1,6 +1,6 @@
 class Route < ActiveRecord::Base
 
-  UNIT_CONV = {mile:1.00, km:1.60934, kilometer:1.60934, nm:0.868976, nautical_mile:0.868976}
+  UNIT_CONV = {mile:1.0, km:1.60934, kilometer:1.60934, nm:0.868976, nautical_mile:0.868976}
 
   # associations
 
@@ -33,7 +33,15 @@ class Route < ActiveRecord::Base
   end
 
   def distance(units=:mile)
-    UNIT_CONV[units] *= self.origin_airport.distance_to(self.destination_airport)
+    if self.miles.nil?
+      UNIT_CONV[units] *= self.origin_airport.distance_to(self.destination_airport)
+    else
+      UNIT_CONV[units]*self.miles
+    end
+  end
+
+  def distance!
+    self.miles = self.origin_airport.distance_to(self.destination_airport)
   end
 
   alias :map_line :coordinates_hash

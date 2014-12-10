@@ -63,6 +63,11 @@ RSpec.describe Route, :type => :model do
         expect(@route.distance(:nm)).to be_within(10.0).of(733.8)
         expect(@route.distance(:nautical_mile)).to be_within(10.0).of(733.8)
       end
+      it "should save the new distance to the route in miles when called with '!'" do
+        @route.distance!
+        @route.save!
+        expect(@route.miles).to be_within(10.0).of(844.443)
+      end
     end
 
   end
