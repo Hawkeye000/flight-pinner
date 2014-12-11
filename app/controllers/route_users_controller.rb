@@ -14,6 +14,12 @@ class RouteUsersController < ApplicationController
     end
   end
 
+  def destroy
+    @route_user = RouteUser.find(params[:id])
+    @route_user.destroy
+    redirect_to @route_user.user
+  end
+
   private
 
     def route_user_params

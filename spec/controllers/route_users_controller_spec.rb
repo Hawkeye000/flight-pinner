@@ -26,9 +26,14 @@ RSpec.describe RouteUsersController, :type => :controller do
 
     context "with valid attributes" do
       it "saves the new route_user in the database" do
-        expect{ post :create, route_user:attributes_for(:route_user) }.to change(RouteUser,:count).by(1)
+        expect{
+          post :create, route_user:attributes_for(:route_user, user_id:@user.id)
+        }.to change(RouteUser,:count).by(1)
       end
-      it "redirects to the user page"
+      it "redirects to the user page" do
+        post :create, route_user:attributes_for(:route_user)
+        expect(response).to redirect_to RouteUser.first.user
+      end
     end
 
     context "with invalid attributes" do
@@ -40,6 +45,24 @@ RSpec.describe RouteUsersController, :type => :controller do
 
     context "when the user id and current_user do not match" do
       it "does not save the new route_user in the database"
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    before do
+      @user = create(:user)
+      @route_user = create(:route_user, user_id:@user.id)
+    end
+
+    it "deletes the route_user" do
+      expect{
+        delete :destroy, id: @route_user
+      }.to change(RouteUser, :count).by(-1)
+    end
+
+    it "redirects to the user page" do
+      delete :destroy, id: @route_user
+      expect(response).to redirect_to @route_user.user
     end
   end
 end
