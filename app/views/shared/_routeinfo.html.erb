@@ -11,7 +11,7 @@
       <b>From:</b>
     </div>
     <div class="small-10 columns">
-      <%= route.origin_airport.name %>
+      <%= link_to route.origin_airport.name, route.origin_airport %>
     </div>
   </div>
   <div class="row">
@@ -19,7 +19,7 @@
       <b>To:</b>
     </div>
     <div class="small-10 columns">
-      <%= route.destination_airport.name %>
+      <%= link_to route.destination_airport.name, route.destination_airport %>
     </div>
   </div>
   <div class="row">
@@ -27,7 +27,7 @@
       <b>Carrier:</b>
     </div>
     <div class="small-10 columns">
-      <%= route.airline.name %>
+      <%= link_to route.airline.name, route.airline %>
     </div>
   </div>
 </div>

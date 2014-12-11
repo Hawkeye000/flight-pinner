@@ -64,6 +64,22 @@ describe "user profile view" do
     expect(page).to have_content(@user.miles.round)
   end
 
+  it "should have a link to the airports" do
+    route_user = create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
+    origin = route_user.route.origin_airport
+    destination = route_user.route.destination_airport
+    visit user_path(@user)
+    expect(page).to have_link("#{origin.name}", href:airport_path(origin))
+    expect(page).to have_link("#{destination.name}", href:airport_path(destination))
+  end
+
+  it "should have a link to the airline" do
+    route_user = create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
+    airline = route_user.route.airline
+    visit user_path(@user)
+    expect(page).to have_link("#{airline.name}", href:airline_path(airline))
+  end
+
   describe "destroy links" do
     context "logged in as user" do
       it "should have a link to destroy logged routes" do
