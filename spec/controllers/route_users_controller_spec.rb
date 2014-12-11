@@ -21,7 +21,7 @@ RSpec.describe RouteUsersController, :type => :controller do
 
     before do
       @user = create(:user)
-      login_as(@user, scope: :user)
+      sign_in(@user)
     end
 
     context "with valid attributes" do
@@ -40,11 +40,17 @@ RSpec.describe RouteUsersController, :type => :controller do
       it "does not save the new route_user in the database" do
         expect{ post :create, route_user:attributes_for(:invalid_route_user) }.to change(RouteUser,:count).by(0)
       end
-      it "re-renders the :new template"
+      it "re-renders the :new template" do
+        post :create, route_user:attributes_for(:invalid_route_user)
+        expect(response).to render_template :new
+      end
     end
 
     context "when the user id and current_user do not match" do
-      it "does not save the new route_user in the database"
+      it "does not save the new route_user in the database" do
+        sign_in create(:user, email:"example@example.com")
+        expect{ post :create, route_user:attributes_for(:route_user, user_id:@user.id) }.to raise_exception
+      end
     end
   end
 
@@ -54,15 +60,29 @@ RSpec.describe RouteUsersController, :type => :controller do
       @route_user = create(:route_user, user_id:@user.id)
     end
 
-    it "deletes the route_user" do
-      expect{
+    context "when the user_id and current_user match" do
+      before { sign_in(@user) }
+
+      it "deletes the route_user" do
+        expect{
+          delete :destroy, id: @route_user
+        }.to change(RouteUser, :count).by(-1)
+      end
+
+      it "redirects to the user page" do
         delete :destroy, id: @route_user
-      }.to change(RouteUser, :count).by(-1)
+        expect(response).to redirect_to @route_user.user
+      end
     end
 
-    it "redirects to the user page" do
-      delete :destroy, id: @route_user
-      expect(response).to redirect_to @route_user.user
+    context "when the user_id and current_user do not match" do
+      it "does not allow deletion" do
+        user_2 = create(:user, email:"user2@example.com")
+        sign_in(user_2)
+        expect{
+          delete :destroy, id:@route_user
+        }.to raise_exception
+      end
     end
   end
 end
