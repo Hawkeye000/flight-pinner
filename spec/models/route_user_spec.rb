@@ -9,6 +9,11 @@ RSpec.describe RouteUser, :type => :model do
 
   describe "methods" do
     it { should respond_to :date }
+    it { should respond_to :origin_airport }
+    it { should respond_to :origin }
+    it { should respond_to :destination }
+    it { should respond_to :destination_airport }
+    it { should respond_to :airline }
   end
 
   describe "validation" do

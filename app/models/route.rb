@@ -45,5 +45,7 @@ class Route < ActiveRecord::Base
   end
 
   alias :map_line :coordinates_hash
+  alias :origin :origin_airport
+  alias :destination :destination_airport
 
 end

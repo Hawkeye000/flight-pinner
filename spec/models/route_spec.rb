@@ -30,7 +30,21 @@ RSpec.describe Route, :type => :model do
     describe "responses" do
       it { should respond_to :airline }
       it { should respond_to :origin_airport }
+      it { should respond_to :origin }
       it { should respond_to :destination_airport }
+      it { should respond_to :destination }
+    end
+
+    describe "aliases" do
+      before { @route = create(:route) }
+      
+      it "should allow #origin as short for #origin_airport" do
+        expect(@route.origin).to eq(@route.origin_airport)
+      end
+
+      it "should allow #destination as short for #destination_airport" do
+        expect(@route.destination).to eq(@route.destination_airport)
+      end
     end
 
     describe "coordinates" do
