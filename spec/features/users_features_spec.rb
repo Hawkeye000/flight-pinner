@@ -73,13 +73,14 @@ describe "user profile view" do
   it "should remove the route from the user by clicking the delete button" do
     create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
     visit user_path(@user)
-    expect(page).to have_content(@user.routes.first.airline.name)
-    expect(page).to have_content(@user.routes.first.origin_airport.iata_faa)
-    expect(page).to have_content(@user.routes.first.destination_airport.iata_faa)
+    airline, origin, destination = @user.routes.first.airline, @user.routes.first.origin_airport, @user.routes.first.destination_airport
+    expect(page).to have_content(airline.name)
+    expect(page).to have_content(origin.iata_faa)
+    expect(page).to have_content(destination.iata_faa)
     click_link_or_button("delete_route_1")
-    expect(page).to_not have_content(@user.routes.first.airline.name)
-    expect(page).to_not have_content(@user.routes.first.origin_airport.iata_faa)
-    expect(page).to_not have_content(@user.routes.first.destination_airport.iata_faa)
+    expect(page).to_not have_content(airline.name)
+    expect(page).to_not have_content(origin.iata_faa)
+    expect(page).to_not have_content(destination.iata_faa)
   end
 
 end

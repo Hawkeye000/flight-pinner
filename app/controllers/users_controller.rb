@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def show
-    @user = current_user
+    @user = User.find(params[:id])
     @airports = Gmaps4rails.build_markers(@user.airports) do |airport, marker|
       marker.lat airport.latitude
       marker.lng airport.longitude
