@@ -5,6 +5,18 @@
     <b>Miles Flown: </b><%= @user.miles.round %>
   </div>
 </div>
-<% @user.routes.each do |route| %>
-  <%= render 'shared/routeinfo', route:route %>
+<% @user.route_users.each do |route_user| %>
+  <div class="row">
+    <div class="small-8 columns">
+      <%= render 'shared/routeinfo', route:route_user.route %>
+    </div>
+    <div class="small-4 columns">
+      <%= link_to 'x', route_user,
+          method: :delete,
+          data: { confirm: 'Are you Sure?' },
+          class:"button alert tiny",
+          style:"vertical-align:middle;",
+          id: "delete_route_#{route_user.id}" %>
+    </div>
+  </div>
 <% end %>

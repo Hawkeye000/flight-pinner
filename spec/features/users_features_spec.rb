@@ -64,4 +64,22 @@ describe "user profile view" do
     expect(page).to have_content(@user.miles.round)
   end
 
+  it "should have a link to destroy logged routes" do
+    create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
+    visit user_path(@user)
+    expect(page).to have_link("delete_route_1")
+  end
+
+  it "should remove the route from the user by clicking the delete button" do
+    create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
+    visit user_path(@user)
+    expect(page).to have_content(@user.routes.first.airline.name)
+    expect(page).to have_content(@user.routes.first.origin_airport.iata_faa)
+    expect(page).to have_content(@user.routes.first.destination_airport.iata_faa)
+    click_link_or_button("delete_route_1")
+    expect(page).to_not have_content(@user.routes.first.airline.name)
+    expect(page).to_not have_content(@user.routes.first.origin_airport.iata_faa)
+    expect(page).to_not have_content(@user.routes.first.destination_airport.iata_faa)
+  end
+
 end
