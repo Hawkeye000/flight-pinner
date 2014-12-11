@@ -1,19 +1,19 @@
 <h1><%= @user.email %></h1>
 <%= render 'routes/map_of_route' %>
 <div class="row">
-  <div class="small-12 columns">
+  <div class="small-2 columns"></div>
+  <div class="small-10 columns">
     <b>Miles Flown: </b><%= @user.miles.round %>
   </div>
 </div>
 <% @user.route_users.each do |route_user| %>
   <div class="row">
-    <div class="small-8 columns">
+    <div class="small-2 columns"></div>
+    <div class="small-10 columns">
       <%= render 'shared/routeinfo', route:route_user.route %>
-    </div>
-    <div class="small-4 columns">
       <%= link_to 'x', route_user,
           method: :delete,
-          data: { confirm: 'Are you Sure?' },
+          data: { confirm: 'Delete Flight: Are you Sure?' },
           class:"button alert tiny",
           style:"vertical-align:middle;",
           id: "delete_route_#{route_user.id}" %>
