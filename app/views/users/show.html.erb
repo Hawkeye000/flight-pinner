@@ -11,12 +11,14 @@
     <div class="small-2 columns"></div>
     <div class="small-10 columns">
       <%= render 'shared/routeinfo', route:route_user.route %>
-      <%= link_to 'x', route_user,
-          method: :delete,
-          data: { confirm: 'Delete Flight: Are you Sure?' },
-          class:"button alert tiny",
-          style:"vertical-align:middle;",
-          id: "delete_route_#{route_user.id}" %>
+      <% if policy(route_user).destroy? %>
+        <%= link_to 'x', route_user,
+            method: :delete,
+            data: { confirm: 'Delete Flight: Are you Sure?' },
+            class:"button alert tiny",
+            style:"vertical-align:middle;",
+            id: "delete_route_#{route_user.id}" %>
+      <% end %>
     </div>
   </div>
 <% end %>

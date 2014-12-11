@@ -64,10 +64,22 @@ describe "user profile view" do
     expect(page).to have_content(@user.miles.round)
   end
 
-  it "should have a link to destroy logged routes" do
-    create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
-    visit user_path(@user)
-    expect(page).to have_link("delete_route_1")
+  describe "destroy links" do
+    context "logged in as user" do
+      it "should have a link to destroy logged routes" do
+        create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
+        visit user_path(@user)
+        expect(page).to have_link("delete_route_1")
+      end
+    end
+    context "not logged in as user" do
+      it "should not have a link to destroy logged routes" do
+        create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
+        logout(:user)
+        visit user_path(@user)
+        expect(page).to_not have_link("delete_route_1")
+      end
+    end
   end
 
   it "should remove the route from the user by clicking the delete button" do
