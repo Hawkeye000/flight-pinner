@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
   def airports
     (self.destination_airports + self.origin_airports).uniq
   end
+
+  def miles
+    self.routes.map { |route| route.distance }.sum
+  end
 end

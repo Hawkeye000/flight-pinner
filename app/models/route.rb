@@ -34,7 +34,7 @@ class Route < ActiveRecord::Base
 
   def distance(units=:mile)
     if self.miles.nil?
-      UNIT_CONV[units] *= self.origin_airport.distance_to(self.destination_airport)
+      UNIT_CONV[units]*self.origin_airport.distance_to(self.destination_airport)
     else
       UNIT_CONV[units]*self.miles
     end

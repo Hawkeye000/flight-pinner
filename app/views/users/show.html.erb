@@ -1,4 +1,10 @@
 <h1><%= @user.email %></h1>
+<%= render 'routes/map_of_route' %>
+<div class="row">
+  <div class="small-12 columns">
+    <b>Miles Flown: </b><%= @user.miles.round %>
+  </div>
+</div>
 <% @user.routes.each do |route| %>
   <%= render 'shared/routeinfo', route:route %>
 <% end %>
