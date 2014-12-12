@@ -9,9 +9,11 @@
       </thead>
       <tbody>
         <% @airlines.each do |airline| %>
-          <td><%= airline.name %></td>
-          <td><%= airline.country %></td>
-          <td><%= airline.iata %></td>
+          <tr>
+            <td><%= airline.name %></td>
+            <td><%= airline.country %></td>
+            <td><%= airline.iata %></td>
+          </tr>
         <% end %>
       </tbody>
     </table>
