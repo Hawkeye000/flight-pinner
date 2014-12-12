@@ -1,33 +1,31 @@
 <div class="row">
-  <div class="row">
-    <div class="small-12 columns centered">
-      <h1>
-        <%= "#{route.origin_airport.iata_faa} -> #{route.destination_airport.iata_faa}" %>
-      </h1>
-    </div>
+  <div class="small-12 columns centered">
+    <h3>
+      <%= "#{route.origin_airport.iata_faa} -> #{route.destination_airport.iata_faa}" %>
+    </h3>
   </div>
-  <div class="row">
-    <div class="small-2 columns">
-      <b>From:</b>
-    </div>
-    <div class="small-10 columns">
-      <%= link_to route.origin_airport.name, route.origin_airport %>
-    </div>
+</div>
+<div class="row">
+  <div class="small-2 columns">
+    <b>From:</b>
   </div>
-  <div class="row">
-    <div class="small-2 columns">
-      <b>To:</b>
-    </div>
-    <div class="small-10 columns">
-      <%= link_to route.destination_airport.name, route.destination_airport %>
-    </div>
+  <div class="small-10 columns">
+    <%= link_to route.origin_airport.name, route.origin_airport %>
   </div>
-  <div class="row">
-    <div class="small-2 columns">
-      <b>Carrier:</b>
-    </div>
-    <div class="small-10 columns">
-      <%= link_to route.airline.name, route.airline %>
-    </div>
+</div>
+<div class="row">
+  <div class="small-2 columns">
+    <b>To:</b>
+  </div>
+  <div class="small-10 columns">
+    <%= link_to route.destination_airport.name, route.destination_airport %>
+  </div>
+</div>
+<div class="row">
+  <div class="small-2 columns">
+    <b>Carrier:</b>
+  </div>
+  <div class="small-10 columns">
+    <%= link_to route.airline.name, route.airline %>
   </div>
 </div>

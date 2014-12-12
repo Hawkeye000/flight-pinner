@@ -11,6 +11,14 @@
     <div class="small-2 columns"></div>
     <div class="small-10 columns">
       <%= render 'shared/routeinfo', route:route_user.route %>
+      <div class="row">
+        <div class="small-2 columns">
+          <b>Flown:</b>
+        </div>
+        <div class="small-10 columns">
+          <%= route_user.date %>
+        </div>
+      </div>
       <% if policy(route_user).destroy? %>
         <%= link_to 'x', route_user,
             method: :delete,
