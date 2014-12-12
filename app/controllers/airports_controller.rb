@@ -11,7 +11,8 @@ class AirportsController < ApplicationController
     end
 
     @airports = Airport.all
-    @hash = Gmaps4rails.build_markers(@airports) do |airport, marker|
+    # only puts the busiest 300 on the map to speed load times
+    @hash = Gmaps4rails.build_markers(Airport.busiest(300)) do |airport, marker|
       marker.lat airport.latitude
       marker.lng airport.longitude
       marker.picture({

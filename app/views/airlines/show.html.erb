@@ -4,3 +4,26 @@
     <b>Based In:</b> <%= @airline.country %>
   </div>
 </div>
+<div class="row">
+  <div class="small-12 columns">
+    <h3>Serving Airports:</h3>
+    <table>
+      <thead>
+        <th>Airport</th>
+        <th>IATA/FAA</th>
+        <th>City</th>
+        <th>Country</th>
+      </thead>
+      <tbody>
+        <% @airline.airports.each do |airport| %>
+          <tr>
+            <td><%= link_to airport.name, airport_path(airport) %></td>
+            <td><%= airport.iata_faa %></td>
+            <td><%= airport.city %></td>
+            <td><%= airport.country %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
