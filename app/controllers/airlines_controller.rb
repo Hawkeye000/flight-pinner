@@ -5,7 +5,7 @@ class AirlinesController < ApplicationController
   end
 
   def index
-    @airlines = Airline.all
+    @airlines = Airline.all.page params[:page]
   end
 
 end

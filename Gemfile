@@ -46,6 +46,9 @@ gem 'underscore-rails'
 gem 'foundation-rails', '>= 5.0'
 gem 'rails_layout', group: :development
 
+# pagination
+gem 'kaminari'
+
 # user management
 gem 'devise'
 gem 'pundit'
