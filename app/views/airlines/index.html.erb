@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="small-12">
+    <h1>Airlines</h1>
+    <table>
+      <thead>
+        <th>Name</th>
+        <th>Country</th>
+        <th>IATA</th>
+      </thead>
+      <tbody>
+        <% @airlines.each do |airline| %>
+          <td><%= airline.name %></td>
+          <td><%= airline.country %></td>
+          <td><%= airline.iata %></td>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
