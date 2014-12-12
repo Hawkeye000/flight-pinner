@@ -1,7 +1,7 @@
 class Airline < ActiveRecord::Base
 
   #associations
-  
+
   has_many :routes
 
   #validations
@@ -19,6 +19,15 @@ class Airline < ActiveRecord::Base
   before_save { self.country = self.country.titleize }
   before_validation { self.iata.upcase! unless self.iata.blank? }
   before_validation { self.icao.upcase! unless self.icao.blank? }
+
+  def airports
+    airports = []
+    self.routes.each do |x|
+      airports << x.origin_airport
+      airports << x.destination_airport
+    end
+    airports.uniq
+  end
 
   private
     def one_code?

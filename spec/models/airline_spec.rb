@@ -10,8 +10,21 @@ RSpec.describe Airline, :type => :model do
     it { should have_many :routes }
   end
 
-  describe "responses" do
-    it { should respond_to :routes_count }
+  describe "fuctions" do
+
+    describe "responses" do
+      it { should respond_to :routes_count }
+      it { should respond_to :airports }
+    end
+
+    describe "#airports" do
+      it "should list all the airports run by this airline" do
+        @airports = [create(:airport, iata_faa:"JFK"), create(:airport, iata_faa:"BOS")]
+        @airline = create(:airline)
+        create(:route, origin_airport:@airports[0], destination_airport:@airports[1], airline:@airline)
+        expect(@airline.airports).to match_array(@airports)
+      end
+    end
   end
 
   describe "codes" do
