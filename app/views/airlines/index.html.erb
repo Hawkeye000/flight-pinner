@@ -7,13 +7,15 @@
         <th>Name</th>
         <th>Country</th>
         <th>IATA</th>
+        <th>Total Routes</th>
       </thead>
       <tbody>
         <% @airlines.each do |airline| %>
           <tr>
-            <td><%= airline.name %></td>
+            <td><%= link_to airline.name, airline_path(airline) %></td>
             <td><%= airline.country %></td>
             <td><%= airline.iata %></td>
+            <td><%= airline.routes_count %></td>
           </tr>
         <% end %>
       </tbody>
