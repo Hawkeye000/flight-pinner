@@ -46,6 +46,68 @@ describe "views" do
       expect(page).to_not have_content(@no_fly_airline.name)
     end
 
+    describe "sorting by columns" do
+
+      before do
+        Airline.destroy_all
+        Route.destroy_all
+        @airlines = []
+        @airlines << create(:airline, name:"A", country:"Z", iata:"HI")
+        @airlines << create(:airline, name:"B", country:"Y", iata:"IJ")
+        @airlines << create(:airline, name:"C", country:"X", iata:"GH")
+
+        # create routes for each of the airlines
+        [0, 1, 2].each do |x|
+          x.times { create(:route, origin_airport:@airport_1, destination_airport:@airport_2, airline:@airlines[x]) }
+        end
+
+        visit airlines_path
+      end
+
+      it "should have a sort-by-name link" do
+        expect(page).to have_link("Name", href:airlines_path(sort: :name))
+      end
+      it "should be able to sort by name" do
+        click_link_or_button "sort-by-name"
+        expect(page).to have_css("table tr td#airline_name_0", text:"B")
+        expect(page).to have_css("table tr td#airline_name_1", text:"C")
+      end
+
+      it "should have a sort-by-country link" do
+        expect(page).to have_link("Country", href:airlines_path(sort: :country))
+      end
+      it "should be able to sort by country" do
+        click_link_or_button "sort-by-country"
+        expect(page).to have_css("table tr td#airline_country_0", text:"X")
+        expect(page).to have_css("table tr td#airline_country_1", text:"Y")
+      end
+
+      it "should have a sort-by-total-routes link" do
+        expect(page).to have_link("Total Routes", href:airlines_path(sort: :routes_count))
+      end
+      it "should be able to sort by Total Routes" do
+        click_link_or_button "sort-by-total-routes"
+        expect(page).to have_css("table tr td#airline_routes_count_0", text:"1")
+        expect(page).to have_css("table tr td#airline_routes_count_1", text:"2")
+      end
+
+      it "should have a sort-by-iata link" do
+        expect(page).to have_link("IATA", href:airlines_path(sort: :iata))
+      end
+      it "should be able to sort by IATA code" do
+        click_link_or_button "sort-by-iata"
+        expect(page).to have_css("table tr td#airline_iata_0", text:"GH")
+        expect(page).to have_css("table tr td#airline_iata_1", text:"IJ")
+      end
+
+    end
+
+  end
+
+  after do |example|
+    if example.exception != nil
+      save_and_open_page
+    end
   end
 
 end
