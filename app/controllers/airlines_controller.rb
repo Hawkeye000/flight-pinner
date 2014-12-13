@@ -5,7 +5,7 @@ class AirlinesController < ApplicationController
   end
 
   def index
-    @airlines = Airline.all.page params[:page]
+    @airlines = Airline.where("routes_count > 0").page params[:page]
   end
 
 end
