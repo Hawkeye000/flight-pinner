@@ -4,10 +4,14 @@ RSpec.describe AirlinesController, :type => :controller do
 
   describe "GET #index" do
 
-    it "populates an array of airlines" do
-      airline = create(:airline)
+    it "populates an array of airlines with routes_count > 0" do
+      create(:airline)
+      create(:airport, iata_faa:"JFK")
+      create(:airport, iata_faa:"BOS")
+      create(:route, airline:Airline.first)
+      airline = Airline.first
       get :index
-      expect(assigns(:airlines)).to eq([airline])
+      expect(assigns(:airlines)).to match_array([airline])
     end
 
     it "renders the :index view" do
