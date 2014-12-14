@@ -4,18 +4,18 @@
     <%= paginate @airlines %>
     <table width="100%">
       <thead>
-        <th><%= link_to "Name", airlines_path(sort: :name, page:params[:page]), id:"sort-by-name" %></th>
-        <th><%= link_to "Country", airlines_path(sort: :country, page:params[:page]), id:"sort-by-country" %></th>
-        <th><%= link_to "IATA", airlines_path(sort: :iata, page:params[:page]), id:"sort-by-iata" %></th>
-        <th><%= link_to "Total Routes", airlines_path(sort: :routes_count, page:params[:page]), id:"sort-by-total-routes" %></th>
+        <th><%= sortable :name, "Name" %></th>
+        <th><%= sortable :country, "Country" %></th>
+        <th><%= sortable :iata, "IATA" %></th>
+        <th><%= sortable :routes_count, "Total Routes" %></th>
       </thead>
       <tbody>
         <% @airlines.each_with_index do |airline, index| %>
           <tr>
             <%= content_tag(:td, link_to(airline.name, airline_path(airline)), id:"airline_name_#{index}", width:"40%") %>
-            <%= content_tag(:td, airline.country, id:"airline_country_#{index}", width:"30%") %>
+            <%= content_tag(:td, airline.country, id:"airline_country_#{index}", width:"27%") %>
             <%= content_tag(:td, airline.iata, id:"airline_iata_#{index}", width:"15%") %>
-            <%= content_tag(:td, airline.routes_count, id:"airline_routes_count_#{index}", width:"15%") %>
+            <%= content_tag(:td, airline.routes_count, id:"airline_routes_count_#{index}", width:"18%") %>
           </tr>
         <% end %>
       </tbody>

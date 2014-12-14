@@ -65,16 +65,12 @@ describe "views" do
       end
 
       it "should have a sort-by-name link" do
-        expect(page).to have_link("Name", href:airlines_path(sort: :name))
+        expect(page).to have_link("Name", href:airlines_path(sort: :name, direction: "desc"))
       end
-      it "should be able to sort by name" do
-        click_link_or_button "sort-by-name"
-        expect(page).to have_css("table tr td#airline_name_0", text:"B")
-        expect(page).to have_css("table tr td#airline_name_1", text:"C")
-      end
+      # see default to make sure it is sorted correctly
 
       it "should have a sort-by-country link" do
-        expect(page).to have_link("Country", href:airlines_path(sort: :country))
+        expect(page).to have_link("Country", href:airlines_path(sort: :country, direction: "asc"))
       end
       it "should be able to sort by country" do
         click_link_or_button "sort-by-country"
@@ -83,21 +79,43 @@ describe "views" do
       end
 
       it "should have a sort-by-total-routes link" do
-        expect(page).to have_link("Total Routes", href:airlines_path(sort: :routes_count))
+        expect(page).to have_link("Total Routes", href:airlines_path(sort: :routes_count, direction: "asc"))
       end
       it "should be able to sort by Total Routes" do
-        click_link_or_button "sort-by-total-routes"
+        click_link_or_button "sort-by-routes_count"
         expect(page).to have_css("table tr td#airline_routes_count_0", text:"1")
         expect(page).to have_css("table tr td#airline_routes_count_1", text:"2")
       end
 
       it "should have a sort-by-iata link" do
-        expect(page).to have_link("IATA", href:airlines_path(sort: :iata))
+        expect(page).to have_link("IATA", href:airlines_path(sort: :iata, direction: "asc"))
       end
       it "should be able to sort by IATA code" do
         click_link_or_button "sort-by-iata"
         expect(page).to have_css("table tr td#airline_iata_0", text:"GH")
         expect(page).to have_css("table tr td#airline_iata_1", text:"IJ")
+      end
+
+      describe "second click" do
+        before { click_link_or_button "sort-by-name" }
+        
+        it "should reverse the direction when clicked again" do
+          expect(page).to have_css("table tr td#airline_name_0", text:"C")
+          expect(page).to have_css("table tr td#airline_name_1", text:"B")
+        end
+        it "should show an indicator of the direction pointing down" do
+          expect(page).to have_content("\u25b2")
+        end
+      end
+
+      describe "default" do
+        it "should set name as the default" do
+          expect(page).to have_css("table tr td#airline_name_0", text:"B")
+          expect(page).to have_css("table tr td#airline_name_1", text:"C")
+        end
+        it "should show an indicator of the direction pointing down" do
+          expect(page).to have_content("\u25bc")
+        end
       end
 
     end
@@ -106,7 +124,7 @@ describe "views" do
 
   after do |example|
     if example.exception != nil
-      save_and_open_page
+      # save_and_open_page
     end
   end
 
