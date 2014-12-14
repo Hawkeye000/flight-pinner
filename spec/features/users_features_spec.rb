@@ -111,4 +111,10 @@ describe "user profile view" do
     expect(page).to_not have_content(destination.iata_faa)
   end
 
+  after do |example|
+    if example.exception != nil
+      save_and_open_page
+    end
+  end
+
 end

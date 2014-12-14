@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @route_users = @user.route_users.order(:date => :desc)
+    @route_users = @user.route_users.order(:date => :desc).page(params[:page])
     @airports = Gmaps4rails.build_markers(@user.airports) do |airport, marker|
       marker.lat airport.latitude
       marker.lng airport.longitude

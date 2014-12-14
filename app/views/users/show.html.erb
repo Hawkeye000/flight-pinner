@@ -1,32 +1,47 @@
 <h1><%= @user.email %></h1>
 <%= render 'routes/map_of_route' %>
 <div class="row">
-  <div class="small-2 columns"></div>
-  <div class="small-10 columns">
-    <b>Miles Flown: </b><%= @user.miles.round %>
+  <div class="small-12 columns">
+    <b>Miles Flown:</b><%= @user.miles.round %>
   </div>
 </div>
-<% @route_users.each do |route_user| %>
-  <div class="row">
-    <div class="small-2 columns"></div>
-    <div class="small-10 columns">
-      <%= render 'shared/routeinfo', route:route_user.route %>
-      <div class="row">
-        <div class="small-2 columns">
-          <b>Flown:</b>
-        </div>
-        <div class="small-10 columns">
-          <%= route_user.date %>
-        </div>
-      </div>
-      <% if policy(route_user).destroy? %>
-        <%= link_to 'x', route_user,
-            method: :delete,
-            data: { confirm: 'Delete Flight: Are you Sure?' },
-            class:"button alert tiny",
-            style:"vertical-align:middle;",
-            id: "delete_route_#{route_user.id}" %>
+<%= paginate @route_users %>
+<div class="row">
+  <table>
+    <thead>
+      <th width="15%"></th>
+      <th width="23%">Origin</th>
+      <th width="23%">Destination</th>
+      <th width="15%">Airline</th>
+      <th width="15%">Flown On</th>
+      <th width="19%"></th>
+    </thead>
+    <tbody>
+      <% @route_users.each do |route_user| %>
+        <% route = route_user.route %>
+        <tr>
+          <td>
+            <%= "#{route_user.route.origin.iata_faa} ->
+                  #{route_user.route.destination.iata_faa}" %>
+          </td>
+          <td><%= link_to route.origin.name, airport_path(route.origin) %></td>
+          <td><%= link_to route.destination.name, airport_path(route.destination) %></td>
+          <td><%= link_to route.airline.name, airline_path(route.airline) %></td>
+          <td><%= route_user.date %></td>
+          <td>
+            <% if policy(route_user).destroy? %>
+              <%= link_to 'x', route_user,
+              method: :delete,
+              data: { confirm: 'Delete Flight: Are you Sure?' },
+              class:"button alert tiny",
+                style:"vertical-align:middle;",
+                id: "delete_route_#{route_user.id}" %>
+            <% end %>
+          </td>
+        </tr>
       <% end %>
-    </div>
-  </div>
-<% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @route_users %>
