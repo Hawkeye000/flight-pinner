@@ -3,8 +3,7 @@ class RoutesController < ApplicationController
   def index
     if params[:airport_id]
       airports = Airport.find(params[:airport_id])
-      @routes = Airport.find(@airport).departing_flights
-
+      @routes = Airport.find(params[:airport_id]).departing_flights
     elsif params[:airline_id]
       airports = Airline.find(params[:airline_id]).airports
       @routes = Airline.find(params[:airline_id]).routes
