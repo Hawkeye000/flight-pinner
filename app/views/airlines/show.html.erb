@@ -1,8 +1,15 @@
 <div class="row">
   <div class="small-12 columns">
     <h1><%= @airline.name %></h1>
-    <b>Based In:</b> <%= @airline.country %>
-    <b>Routes Flown:</b> <%= @airline.routes_count %>
+    <p>
+      <b>Based In:</b> <%= @airline.country %>
+    </p>
+    <p>
+      <b>Routes Flown:</b> <%= @airline.routes_count %>
+    </p>
+    <p>
+      <%= link_to "See all Routes", airline_routes_path(airline_id:@airline.id) %>
+    </p>
   </div>
 </div>
 <div class="row">

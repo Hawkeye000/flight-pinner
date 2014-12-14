@@ -12,8 +12,10 @@ Rails.application.routes.draw do
 
   resources :routes, only:[:index, :show]
 
-  resources :airlines, only:[:index, :show]
-
+  resources :airlines, only:[:index, :show] do
+    resources :routes, only:[:index]
+  end
+  
   root to:'airports#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
