@@ -6,8 +6,10 @@ class RoutesController < ApplicationController
       @routes = Airport.find(params[:airport_id]).departing_flights.page params[:page]
     elsif params[:airline_id]
       # airports = Airline.find(params[:airline_id]).airports
-      @routes = Airline.find(params[:airline_id]).routes.includes(:origin_airport).page params[:page]
+      @routes = Airline.find(params[:airline_id]).routes.
+          includes(:origin_airport, :destination_airport).page params[:page]
       airports = @routes.map { |x| x.origin_airport }
+      airports += @routes.map { |x| x.destination_airport }
     end
     @airports = Gmaps4rails.build_markers([*airports]) do |airport, marker|
       marker.lat airport.latitude
