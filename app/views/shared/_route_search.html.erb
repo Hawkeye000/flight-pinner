@@ -1,0 +1,19 @@
+<%= form_tag routes_path, method: :get do %>
+  <%= fields_for :search do |ff| %>
+    <p>
+      <%= ff.label :origin_iata_faa, "Origin Airport" %>
+      <%= ff.text_field :origin_iata_faa, placeholder:"Enter IATA/FAA Code...", id:"search_origin_field" %>
+    </p>
+    <p>
+      <%= ff.label :destination_iata_faa, "Destination Airport" %>
+      <%= ff.text_field :destination_iata_faa, placeholder:"Enter IATA/FAA Code...", id:"search_destination_field" %>
+    </p>
+    <p>
+      <%= ff.label :airline_name, "Airline"  %>
+      <%= ff.text_field :airline_name, placeholder:"Enter Airline Name...", id:"search_airline_field" %>
+    </p>
+  <% end %>
+  <p>
+    <%= submit_tag "Search Routes", class:"button" %>
+  </p>
+<% end %>
