@@ -1,6 +1,7 @@
 <%= render 'map_of_route' %>
 <div class="row">
   <div class="small-12 columns small-centered">
+    <%= paginate @routes %>
     <table>
       <thead>
         <tr>
@@ -12,10 +13,10 @@
       <tbody>
         <% @routes.each do |route| %>
           <tr>
-            <td><%= route.origin_airport.iata_faa %></td>
-            <td><%= route.destination_airport.iata_faa %></td>
-            <td><%= route.airline.name %></td>
-            <td>
+            <td width="20%"><%= route.origin_airport.iata_faa %></td>
+            <td width="20%"><%= route.destination_airport.iata_faa %></td>
+            <td width="30%"><%= route.airline.name %></td>
+            <td width="30%">
               <%= link_to 'Add to Flights Log',
                     new_route_user_path(route_id:route.id),
                     class:"button tiny radius", id:"route_#{route.id}" %>
@@ -24,5 +25,6 @@
         <% end %>
       </tbody>
     </table>
+    <%= paginate @routes %>
   </div>
 </div>

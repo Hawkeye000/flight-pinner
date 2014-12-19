@@ -1,0 +1,10 @@
+<h1>Flight Pinner</h1>
+<% if !current_user %>
+  <p>
+    <%= link_to "Sign up", new_user_registration_path %>
+    <%= " and start logging your flights!" %>
+  </p>
+<% else %>
+  <%= render 'shared/iata_faa_search' %>
+  <%= render 'shared/route_search' %>
+<% end %>

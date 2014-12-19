@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'static_pages/home'
+
   devise_for :users
 
   resources :users, only:[:show]
@@ -15,8 +17,8 @@ Rails.application.routes.draw do
   resources :airlines, only:[:index, :show] do
     resources :routes, only:[:index]
   end
-  
-  root to:'airports#index'
+
+  root to:'static_pages#home'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
