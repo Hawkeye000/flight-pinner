@@ -15,8 +15,11 @@ class RoutesController < ApplicationController
       origin = Airport.find_by(iata_faa: params[:search][:origin_iata_faa])
       destination = Airport.find_by(iata_faa: params[:search][:destination_iata_faa])
       airline = Airline.find_by(name: params[:search][:airline_name])
-      @routes = Route.where(origin_airport:origin, destination_airport:destination, airline:airline)
-      airports = [origin, destination]
+      @routes = Route.all
+      @routes = @routes.where(origin_airport:origin) unless params[:search][:origin_iata_faa].empty?
+      @routes = @routes.where(destination_airport:destination) unless params[:search][:destination_iata_faa].empty?
+      @routes = @routes.where(airline:airline) unless params[:search][:airline_name].empty?
+      airports = [origin, destination].compact
     end
     @routes = @routes.page params[:page]
 

@@ -38,10 +38,11 @@ describe "Home Page" do
 
     context "failed search" do
       it "should display a flash message" do
-        fill_in "search_origin_field", with:"LGA"
+        fill_in "search_origin_field", with:"BOST"
         fill_in "search_destination_field", with:"JFK"
         fill_in "search_airline_field", with:"TestAirline"
         click_link_or_button "Search Routes"
+        expect(page).to have_content("No Routes Found!")
       end
 
       it "should not display any routes" do
@@ -51,8 +52,23 @@ describe "Home Page" do
       end
     end
 
-    context "blank field" do
-      it "should not filter based on that field"
+    context "empty airline field" do
+      it "should display only flights that match the origin and destinations" do
+        @airline_2 = create(:airline, name:"Test2Airline")
+        @airline_3 = create(:airline, name:"Test3Airline")
+        # make a second route to expect in the results
+        @route_2 = create(:route, origin_airport:@origin, destination_airport:@destination, airline:@airline_2)
+        # swap origin and destination to create a route that wont match
+        @route_3 = create(:route, origin_airport:@destination, destination_airport:@origin, airline:@airline_3)
+        fill_in "search_origin_field", with:"BOS"
+        fill_in "search_destination_field", with:"JFK"
+        click_link_or_button "Search Routes"
+        expect(page).to have_content("TestAirline")
+        expect(page).to have_content("Test2Airline")
+        expect(page).to have_content("BOS")
+        expect(page).to have_content("JFK")
+        expect(page).to_not have_content("Test3Airline")
+      end
     end
 
   end
