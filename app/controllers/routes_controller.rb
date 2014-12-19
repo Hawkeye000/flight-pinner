@@ -3,14 +3,11 @@ class RoutesController < ApplicationController
   def index
 
     if params[:airport_id]
-      airports = Airport.find(params[:airport_id])
       @routes = Airport.find(params[:airport_id]).departing_flights
     elsif params[:airline_id]
       # airports = Airline.find(params[:airline_id]).airports
       @routes = Airline.find(params[:airline_id]).routes.
           includes(:origin_airport, :destination_airport)
-      airports = @routes.map { |x| x.origin_airport }
-      airports += @routes.map { |x| x.destination_airport }
     elsif params[:search]
       origin = Airport.find_by(iata_faa: params[:search][:origin_iata_faa])
       destination = Airport.find_by(iata_faa: params[:search][:destination_iata_faa])
@@ -19,9 +16,10 @@ class RoutesController < ApplicationController
       @routes = @routes.where(origin_airport:origin) unless params[:search][:origin_iata_faa].empty?
       @routes = @routes.where(destination_airport:destination) unless params[:search][:destination_iata_faa].empty?
       @routes = @routes.where(airline:airline) unless params[:search][:airline_name].empty?
-      airports = [origin, destination].compact
     end
     @routes = @routes.page params[:page]
+    airports = @routes.map { |x| x.origin_airport }
+    airports += @routes.map { |x| x.destination_airport }
 
     if @routes.empty?
       flash[:alert] = "No Routes Found!"
