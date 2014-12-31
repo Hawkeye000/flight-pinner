@@ -31,7 +31,7 @@ describe "user profile view" do
 
   before do
     @origin_airport = create(:airport, iata_faa:"JFK")
-    @destination_airport = create(:airport, iata_faa:"BOS")
+    @destination_airport = create(:airport, iata_faa:"YYZ")
 
     @origin_airport.geocode
     @origin_airport.save!
@@ -61,7 +61,14 @@ describe "user profile view" do
     create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
     create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
     visit user_path(@user)
-    expect(page).to have_content(@user.miles.round)
+    expect(page).to have_content("Miles Flown: #{@user.miles.round}")
+  end
+
+  it "should show the total number of countries visited" do
+    create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
+    create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
+    visit user_path(@user)
+    expect(page).to have_content("Countries Visited: #{@user.countries.count}")
   end
 
   it "should have a link to the airports" do

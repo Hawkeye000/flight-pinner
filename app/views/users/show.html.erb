@@ -6,8 +6,11 @@
   </div>
 </div>
 <div class="row">
-  <div class="small-12 columns">
+  <div class="small-12 columns" id="miles_flown">
     <b>Miles Flown:</b> <%= @user.miles.round %>
+  </div>
+  <div class="small-12 columns" id="countries_visited">
+    <b>Countries Visited:</b> <%= @user.countries.count %>
   </div>
 </div>
 <%= paginate @route_users %>
