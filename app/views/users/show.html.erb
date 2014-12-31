@@ -2,7 +2,12 @@
 <%= render 'routes/map_of_route' %>
 <div class="row">
   <div class="small-12 columns">
-    <b>Miles Flown:</b><%= @user.miles.round %>
+    <%= link_to "Log New Flight", static_pages_home_path, class:"button" %>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 columns">
+    <b>Miles Flown:</b> <%= @user.miles.round %>
   </div>
 </div>
 <%= paginate @route_users %>
