@@ -17,4 +17,8 @@ class User < ActiveRecord::Base
   def miles
     self.routes.map { |route| route.distance }.sum
   end
+
+  def countries
+    self.routes.map { |x| x.airports }.flatten.map { |x| x.country }.uniq
+  end
 end
