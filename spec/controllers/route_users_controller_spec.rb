@@ -15,6 +15,7 @@ RSpec.describe RouteUsersController, :type => :controller do
       get :new
       expect(response).to render_template :new
     end
+
   end
 
   describe 'POST #create' do
@@ -83,6 +84,30 @@ RSpec.describe RouteUsersController, :type => :controller do
           delete :destroy, id:@route_user
         }.to raise_exception
       end
+    end
+  end
+
+  describe 'GET #edit' do
+
+    before do
+      @user = create(:user)
+      @route_user = create(:route_user, user_id:@user.id)
+    end
+
+    context "user is signed in" do
+
+      before { sign_in(@user) }
+
+      it "assigns the requested route_user to @route_user" do
+        get :edit, id:@route_user
+        expect(assigns(:route_user)).to eq(@route_user)
+      end
+
+      it "renders the :edit template" do
+        get :edit, id:@route_user
+        expect(response).to render_template :edit
+      end
+
     end
   end
 end
