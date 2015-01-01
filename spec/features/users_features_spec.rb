@@ -34,8 +34,10 @@ describe "user profile view" do
     @destination_airport = create(:airport, iata_faa:"YYZ")
 
     @origin_airport.geocode
+    @origin_airport.reverse_geocode
     @origin_airport.save!
     @destination_airport.geocode
+    @destination_airport.reverse_geocode
     @origin_airport.save!
 
     @airline = create(:airline)
@@ -57,18 +59,26 @@ describe "user profile view" do
     expect(page).to have_content(@user.routes.first.destination_airport.iata_faa)
   end
 
-  it "should show the total miles flown" do
-    create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
-    create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
-    visit user_path(@user)
-    expect(page).to have_content("Miles Flown: #{@user.miles.round}")
-  end
+  describe "stats" do
 
-  it "should show the total number of countries visited" do
-    create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
-    create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
-    visit user_path(@user)
-    expect(page).to have_content("Countries Visited: #{@user.countries.count}")
+    before do
+      create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
+      create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
+      visit user_path(@user)
+    end
+
+    it "should show the total miles flown" do
+      expect(page).to have_content("#{@user.miles.round}")
+    end
+
+    it "should show the total number of countries visited" do
+      expect(page).to have_content("Countries Visited (#{@user.countries.count})")
+    end
+
+    it "should show the countries visited" do
+      expect(page).to have_content("United States")
+    end
+
   end
 
   it "should have a link to the airports" do
@@ -87,7 +97,7 @@ describe "user profile view" do
     expect(page).to have_link("#{airline.name}", href:airline_path(airline))
   end
 
-  describe "destroy links" do
+  describe "destroy route logged" do
     context "logged in as user" do
       it "should have a link to destroy logged routes" do
         create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)
@@ -104,6 +114,17 @@ describe "user profile view" do
       end
     end
   end
+
+  describe "travel dates" do
+    context "no date added" do
+      it "should have a link to the route_user_edit page" do
+        create(:route_user, user_id:1, route_id:1, date:nil)
+        visit user_path(@user)
+        expect(page).to have_link("add date")
+      end
+    end
+  end
+
 
   it "should remove the route from the user by clicking the delete button" do
     create(:route_user, user_id:1, route_id:1, date:DateTime.now.to_date)

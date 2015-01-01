@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :users, only:[:show]
 
-  resources :route_users, only:[:new, :create, :destroy]
+  resources :route_users, only:[:new, :create, :destroy, :edit, :update]
 
   resources :airports, only:[:index, :show] do
     resources :routes, only:[:index]
