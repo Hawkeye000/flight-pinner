@@ -116,13 +116,23 @@ describe "user profile view" do
   end
 
   describe "travel dates" do
-    context "no date added" do
-      it "should have a link to the route_user_edit page" do
-        create(:route_user, user_id:1, route_id:1, date:nil)
+
+    before { @route_user = create(:route_user, user_id:1, route_id:1, date:nil) }
+
+    context "no date added, user signed in" do
+      it "should have a link to the edit_route_user page" do
         visit user_path(@user)
-        expect(page).to have_link("add date")
+        expect(page).to have_link("add date", href:edit_route_user_path(@route_user))
       end
     end
+    context "no date added, user not signed in" do
+      it "should not have a link to the edit_route_user page" do
+        logout(:user)
+        visit user_path(@user)
+        expect(page).to_not have_link("add date", href:edit_route_user_path(@route_user))
+      end
+    end
+
   end
 
 

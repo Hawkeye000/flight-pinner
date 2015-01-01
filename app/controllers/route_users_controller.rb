@@ -25,6 +25,23 @@ class RouteUsersController < ApplicationController
     redirect_to @route_user.user
   end
 
+  def edit
+    @route_user = RouteUser.find(params[:id])
+    authorize @route_user
+  end
+
+  def update
+    @route_user = RouteUser.new(route_user_params)
+    authorize @route_user
+    if @route_user.save
+      flash[:notice] = "Flight successfully updated."
+      redirect_to @route_user.user
+    else
+      flash[:alert] = "Failed to update flight"
+      render :edit
+    end
+  end
+
   private
 
     def route_user_params

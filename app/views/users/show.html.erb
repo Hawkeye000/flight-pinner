@@ -44,7 +44,13 @@
           <td><%= link_to route.origin.name, airport_path(route.origin) %></td>
           <td><%= link_to route.destination.name, airport_path(route.destination) %></td>
           <td><%= link_to route.airline.name, airline_path(route.airline) %></td>
-          <td><%= route_user.date ? route_user.date : link_to("add date", edit_route_user_path(route_user)) %></td>
+          <td>
+            <% if route_user.date %>
+              <%= route_user.date %>
+            <% else %>
+              <%= link_to("add date", edit_route_user_path(route_user)) if policy(route_user).edit? %>
+            <% end %>
+          </td>
           <td>
             <% if policy(route_user).destroy? %>
               <%= link_to 'x', route_user,
