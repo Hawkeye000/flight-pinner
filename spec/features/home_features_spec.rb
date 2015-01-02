@@ -14,6 +14,14 @@ describe "Home Page" do
     expect(page).to have_link("Login", href:new_user_session_path)
   end
 
+  it "should have a link to Airlines" do
+    expect(page).to have_link("Airlines", href:airlines_path)
+  end
+
+  it "should have a link to Airports" do
+    expect(page).to have_link("Airports", href:airports_path)
+  end
+
   describe "searching for a route" do
 
     before do
