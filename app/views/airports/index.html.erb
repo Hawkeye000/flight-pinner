@@ -1,16 +1,17 @@
 <%= render 'map_of_airports' %>
 <%= render 'shared/iata_faa_search' %>
-<table>
+<%= paginate @airports %>
+<table width="100%">
   <tr>
-    <th>Name</th>
-    <th>IATA/FAA</th>
-    <th>ICAO</th>
-    <th>Lat</th>
-    <th>Long</th>
+    <th><%= sortable :name, "Name" %></th>
+    <th><%= sortable :iata_faa, "IATA/FAA" %></th>
+    <th><%= sortable :icao, "ICAO" %></th>
+    <th><%= sortable :latitude, "Lat" %></th>
+    <th><%= sortable :longitude, "Long" %></th>
   </tr>
   <% @airports.each do |a| %>
     <tr>
-      <td><%= a.name %></td>
+      <td><%= link_to a.name, airport_path(a) %></td>
       <td><%= a.iata_faa %></td>
       <td><%= a.icao %></td>
       <td><%= a.latitude %></td>
@@ -18,3 +19,4 @@
     </tr>
   <% end %>
 </table>
+<%= paginate @airports %>

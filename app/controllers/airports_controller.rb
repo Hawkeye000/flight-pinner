@@ -1,5 +1,7 @@
 class AirportsController < ApplicationController
 
+  helper_method :sort_column, :sort_direction
+
   def index
     if params[:iata_faa]
       @airport = Airport.find_by(iata_faa:params[:iata_faa])
@@ -10,9 +12,11 @@ class AirportsController < ApplicationController
       end
     end
 
-    @airports = Airport.all
-    # only puts the busiest 300 on the map to speed load times
-    @hash = Gmaps4rails.build_markers(Airport.busiest(300)) do |airport, marker|
+    @airports = Airport.all.
+        order(sort_column.to_s + " " + sort_direction.to_s).
+        page params[:page]
+        
+    @hash = Gmaps4rails.build_markers(@airports) do |airport, marker|
       marker.lat airport.latitude
       marker.lng airport.longitude
       marker.picture({
