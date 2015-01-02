@@ -34,10 +34,10 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara'
   gem 'shoulda-matchers'
-  gem 'faker'
   gem 'launchy'
 end
 
+gem 'faker'
 gem 'factory_girl_rails', '~> 4.0'
 
 # for geolocation support
