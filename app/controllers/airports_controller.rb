@@ -1,6 +1,7 @@
 class AirportsController < ApplicationController
 
   helper_method :sort_column, :sort_direction
+  autocomplete :airport, :iata_faa
 
   def index
     if params[:iata_faa]
@@ -15,7 +16,7 @@ class AirportsController < ApplicationController
     @airports = Airport.all.
         order(sort_column.to_s + " " + sort_direction.to_s).
         page params[:page]
-        
+
     @hash = Gmaps4rails.build_markers(@airports) do |airport, marker|
       marker.lat airport.latitude
       marker.lng airport.longitude

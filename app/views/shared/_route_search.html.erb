@@ -1,19 +1,30 @@
 <%= form_tag routes_path, method: :get do %>
   <%= fields_for :search do |ff| %>
-    <p>
-      <%= ff.label :origin_iata_faa, "Origin Airport" %>
-      <%= ff.text_field :origin_iata_faa, placeholder:"Enter IATA/FAA Code...", id:"search_origin_field" %>
-    </p>
-    <p>
-      <%= ff.label :destination_iata_faa, "Destination Airport" %>
-      <%= ff.text_field :destination_iata_faa, placeholder:"Enter IATA/FAA Code...", id:"search_destination_field" %>
-    </p>
-    <p>
-      <%= ff.label :airline_name, "Airline"  %>
-      <%= ff.text_field :airline_name, placeholder:"Enter Airline Name...", id:"search_airline_field" %>
-    </p>
+    <div class="row" style="height:270px;">
+      <div class="small-3 columns">
+        <%= ff.label :origin_iata_faa, "Origin Airport" %>
+        <%= ff.autocomplete_field :origin_iata_faa,
+          autocomplete_airport_iata_faa_searches_path,
+          placeholder:"Enter IATA/FAA Code...",
+          id:"search_origin_field" %>
+      </div>
+      <div class="small-3 columns">
+        <%= ff.label :destination_iata_faa, "Destination Airport" %>
+        <%= ff.autocomplete_field :destination_iata_faa,
+          autocomplete_airport_iata_faa_searches_path,
+          placeholder:"Enter IATA/FAA Code...",
+          id:"search_destination_field" %>
+      </div>
+      <div class="small-6 columns">
+        <%= ff.label :airline_name, "Airline"  %>
+        <%= ff.autocomplete_field :airline_name,
+          autocomplete_airline_name_searches_path,
+          placeholder:"Enter Airline Name...",
+          id:"search_airline_field" %>
+      </div>
+    </div>
   <% end %>
-  <p>
+  <div class="row">
     <%= submit_tag "Search Routes", class:"button" %>
-  </p>
+  </div>
 <% end %>

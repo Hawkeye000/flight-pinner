@@ -18,6 +18,11 @@ Rails.application.routes.draw do
     resources :routes, only:[:index]
   end
 
+  resources :searches do
+    get :autocomplete_airline_name, :on => :collection
+    get :autocomplete_airport_iata_faa, :on => :collection
+  end
+
   root to:'static_pages#home'
 
   # The priority is based upon order of creation: first created -> highest priority.
