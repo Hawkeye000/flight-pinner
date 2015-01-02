@@ -3,5 +3,15 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   include Pundit
   protect_from_forgery with: :exception
+  
+  private
+
+    def sort_column
+      params[:sort] || :name
+    end
+
+    def sort_direction
+      params[:direction] || "asc"
+    end
 
 end
