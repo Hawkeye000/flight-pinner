@@ -110,4 +110,36 @@ RSpec.describe RouteUsersController, :type => :controller do
 
     end
   end
+
+  describe 'PUT #update' do
+
+    before do
+      @user = create(:user)
+      @route_user = create(:route_user, user_id:@user.id, date:nil)
+      @updated_route_user = attributes_for(:route_user, user_id:@user.id, date:DateTime.now)
+    end
+
+    context "user is signed in" do
+
+      before { sign_in(@user) }
+
+      it "locates the requested @route_user" do
+        put :update, id:@route_user, route_user: @route_user.attributes
+        expect(assigns(:route_user)).to eq(@route_user)
+      end
+
+      it "changes the attributes to the updated record" do
+        put :update, id:@route_user, route_user: @updated_route_user
+        @route_user.reload
+        expect(@route_user.date).to eq(@updated_route_user[:date].to_date)
+      end
+
+      it "renders the user#show template" do
+        put :update, id:@route_user, route_user: @updated_route_user
+        expect(response).to redirect_to @user
+      end
+
+    end
+  end
+
 end

@@ -1,5 +1,5 @@
 <%= render 'shared/routeinfo', route:@route_user.route %>
-<%= form_for @route_user, url: route_users_path, html: { method: :patch } do |f| %>
+<%= form_for @route_user, url: route_user_path, html: { method: :put } do |f| %>
   <div class="row">
     <%= render 'form', f: f %>
   </div>
