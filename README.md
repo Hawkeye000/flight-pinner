@@ -6,9 +6,10 @@ This application provides a means for users to log airline flights they have tak
 Setup
 -----
 To seed the database, run
+```
     $ rake db:migrate
     $ rake db:seed
-
+```
 Seeding the database will take a while.Flight data is provided by https://openflights.org and the seed action will validate each data set before saving to the database.  
 
 Application
