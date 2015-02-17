@@ -1,4 +1,5 @@
-<%= render 'shared/routeinfo', route:@route_user.route %>
+<%= render 'routes/map_of_route' %>
+<%= render 'shared/routeinfo', route:@route %>
 <%= form_for @route_user, url: route_users_path, html: { method: :post } do |f| %>
   <div class="row">
     <%= render 'form', f: f %>

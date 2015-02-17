@@ -6,6 +6,23 @@ class RouteUsersController < ApplicationController
     @route_user = RouteUser.new(user_id:(current_user.id unless current_user.nil?))
     authorize @route_user
     @route_user.route_id = params[:route_id]
+    @route = @route_user.route
+    if @route
+      @routes = [@route]
+      @airports = Gmaps4rails.build_markers(@route.airports) do |airport, marker|
+        marker.lat airport.latitude
+        marker.lng airport.longitude
+        marker.picture({
+          url:"/assets/airplane21.png",
+          width:"32",
+          height:"32",
+          anchor:["12", "12"]
+          })
+          marker.infowindow render_to_string(partial:'shared/mapinfo',
+          locals:{airport:airport}).gsub(/\n/, '').gsub(/"/,'\"')
+      end
+      @polylines = [@route.map_line]
+    end
   end
 
   def create

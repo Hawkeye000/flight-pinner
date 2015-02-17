@@ -6,12 +6,16 @@ RSpec.describe RouteUsersController, :type => :controller do
 
     context "user is not signed in" do
       it "assigns a new route_user to @route_user" do
+        create(:airport, iata_faa:"JFK")
+        create(:airport, iata_faa:"BOS")
         get :new
         expect(assigns(:route_user).attributes).to eq(RouteUser.new.attributes)
       end
     end
 
     it "renders the :new template" do
+      create(:airport, iata_faa:"JFK")
+      create(:airport, iata_faa:"BOS")
       get :new
       expect(response).to render_template :new
     end
