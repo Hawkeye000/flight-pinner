@@ -42,9 +42,9 @@ if Airport.count == 0
   inv_airport_objects.each { |x| puts x.name }
 
   print "\nCreating valid airports\n"
-  airport_objects.each do |x|
+  airport_objects.each_slice(500) do |x|
     $stdout.flush
-    if x.save
+    if Airport.import x, validate:false
       print "Airports Created #{Airport.count}\r"
     else
       print "Error Encountered! Airport:#{x.name}\n"
@@ -89,9 +89,9 @@ if Airline.count == 0
   inv_airline_objects.each { |x| puts x.name }
 
   print "\nCreating valid airlines\n"
-  airline_objects.each do |x|
+  airline_objects.each_slice(1000) do |x|
     $stdout.flush
-    if x.save
+    if Airline.import x, validate:false
       print "Airlines Created #{Airline.count}\r"
     else
       print "Error Encountered! Airline:#{x.name}\n"
@@ -138,9 +138,9 @@ if Route.count == 0
   inv_route_objects.each { |x| puts "Airline ID:#{x.airline_id}, From:#{x.origin_airport_id}, To:#{x.destination_airport_id}\n" }
 
   print "\nCreating valid routes\n"
-  route_objects.each_with_index do |x, i|
+  route_objects.each_slice(2500) do |x|
     $stdout.flush
-    if x.save
+    if Route.import x, validate:false
       print "routes Created #{Route.count}\r"
     else
       print "Error Encountered! #{x.airline_id}, #{x.origin_airport_id}, #{x.destination_airport_id}\n"
